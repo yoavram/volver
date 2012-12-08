@@ -27,7 +27,7 @@
 <script type="text/javascript" src="/static/bootstrap.rtl.js"></script>	
 <script>
 $(function() {
-$("[id^=datepicker]").datepicker();
+$("[id^=datepicker]").datepicker({ dateFormat: "dd/mm/yy" });
 });
 </script>
 {% block head %}
@@ -46,7 +46,7 @@ $("[id^=datepicker]").datepicker();
 <span class="icon-bar"></span>
 <span class="icon-bar"></span>
 </a>
-<a class="brand" href="#">לחזור</a>
+<a class="brand" href="#">Volver לחזור</a>
 <div class="nav-collapse pull-left">
 <ul class="nav">
 <li class="active"><a href="#">תל-אביב/חיפה</a></li>
@@ -125,7 +125,7 @@ $("[id^=datepicker]").datepicker();
 				{% for p in posts if p.direction =='north' %}
 				<tr>
 					<td>
-						{{ p.name }}
+						<a href="mailto:{{ p.email }}">{{ p.name }}</a>
 					</td>
 					<td>
 						{{ p.leaving|format_date }}
@@ -158,7 +158,7 @@ $("[id^=datepicker]").datepicker();
 				{% for p in posts.rewind() if p.direction =='south' %}
 				<tr>
 					<td>
-						{{ p.name }}
+						<a href="mailto:{{ p.email }}">{{ p.name }}</a>
 					</td>
 					<td>
 						{{ p.leaving|format_date }}
@@ -189,24 +189,24 @@ $("[id^=datepicker]").datepicker();
 			{% block footer %}
 			{% endblock footer %}
 
-			<ul class="quick-links">
-				<li> 					
-					<li>Copyright © 2012 Yoav Ram</li>
-					<li>|</li>
-					<li><a href="http://blog.getbootstrap.com/">Twitter Bootstrap</a></li>
-					<li><a href="https://github.com/AbdullahDiaa/Bootstrap-RTL">Bootstrap-RTL</a></li>
-					<li><a href="http://jquery.com/">jQuery</a></li>
-					<li><a href="http://jqueryui.com/">jQuery UI</a></li>
-					<li><a href="http://maps.google.com/">Google Maps</a></li>
-					<li>|</li>
-					<li><a href="http://python.org/">Python</a></li>
-					<li><a href="http://flask.pocoo.org/">Flask</a></li>
-					<li><a href="http://flask-pymongo.readthedocs.org/">Flask-PyMongo</a></li>
-					<li><a href="http://www.mongodb.org/">mongoDB</a></li>
-					<li>|</li>
-					<li><a href="http://www.heroku.com">Heroku</a></li>
-					<li><a href="http://www.mongolab.com">mongolab</a></li>
-					</ul>
+			<ul class="quick-links">					
+				<li><a href="http://blog.getbootstrap.com/">Twitter Bootstrap</a></li>
+				<li><a href="https://github.com/AbdullahDiaa/Bootstrap-RTL">Bootstrap-RTL</a></li>
+				<li><a href="http://jquery.com/">jQuery</a></li>
+				<li><a href="http://jqueryui.com/">jQuery UI</a></li>
+				<li><a href="http://maps.google.com/">Google Maps</a></li>
+				<li>|</li>
+				<li><a href="http://python.org/">Python</a></li>
+				<li><a href="http://flask.pocoo.org/">Flask</a></li>
+				<li><a href="http://flask-pymongo.readthedocs.org/">Flask-PyMongo</a></li>
+				<li><a href="http://www.mongodb.org/">mongoDB</a></li>
+				<li>|</li>
+				<li><a href="http://www.heroku.com">Heroku</a></li>
+				<li><a href="http://www.mongolab.com">mongolab</a></li>
+			</ul>
+			<ul class="quick-links">					
+				<li>Copyright © 2012 Yoav Ram</li>
+			</ul>
 
 			</footer>
 		</div>

@@ -3,6 +3,7 @@ import os
 from flask.ext.pymongo import PyMongo, ASCENDING 
 from datetime import datetime
 
+DATE_FORMAT = "%d/%m/%Y"
 
 def db_name_from_uri(full_uri):
 	ind = full_uri[::-1].find('/')
@@ -10,11 +11,11 @@ def db_name_from_uri(full_uri):
 
 
 def datetime_from_string(string):
-	return datetime.strptime(string, "%m/%d/%Y")
+	return datetime.strptime(string, DATE_FORMAT)
 
 
 def string_from_datetime(datetime_obj):
-	return datetime_obj.strftime("%d/%m/%Y")
+	return datetime_obj.strftime(DATE_FORMAT)
 
 
 def process_form(form):
@@ -25,7 +26,7 @@ def process_form(form):
 
 # add environment variables using 'heroku config:add VARIABLE_NAME=variable_name'
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
-GOOGLE_ANALYTICS = os.environ.get('GOOGLE_ANALYTICS', '')
+#GOOGLE_ANALYTICS = os.environ.get('GOOGLE_ANALYTICS', '')
 MONGO_URI = os.environ.get('MONGOLAB_URI')
 
 # configure app
