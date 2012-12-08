@@ -1,6 +1,20 @@
 /* from the jekyll.css theme
 Theme URI: http://markdotto.com/
 */
+/* Overrides 
+------------------------------------------*/
+.brand
+{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    margin: auto;
+}
+
+.navbar-inner {
+  padding-bottom: 15px;
+}
 
 /* Body resets
 -------------------------------------------------- */
@@ -11,10 +25,10 @@ html, body {
 }
 
 body {
-  padding-top: 60px;
+  padding-top: 70px;
   padding-bottom: 40px;
   padding-right: 10px;
-  padding-left: 10px;
+  padding-left: 20px;
   font-family: "Open Sans", Helvetica, Arial, sans-serif;
   color: #454441;
   background-color: #fff;
