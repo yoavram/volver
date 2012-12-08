@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+	<title>{% block title %} Volver {% endblock title %}</title>
+	<meta name="description" content="" />
+	<meta name="author" content="Yoav Ram">
+	<meta name="keywords" content="">
+	<meta charset="UTF-8">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<link rel="icon" type="image/ico" href="/static/favicon.ico">
+
+	<!-- Le style -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="/static/style.css" rel="stylesheet">
+	<link rel="stylesheet" href="/static/jquery-ui.css" />
+	<link href="/static/bootstrap.rtl.css" rel="stylesheet">
+	<link href="/static/glyphicons.css" rel="stylesheet">
+	<style type="text/css">
+	[class^="icon-"] { background-image: url("/static/glyphicons-halflings-rtl.png"); } 
+	[class*="icon-white"] { background-image: url("/static/glyphicons-halflings-white-rtl.png"); } 
+	[class^="glyphicon-"] { background-image: url("/static/glyphicons.png"); } 
+	</style>
+
+	<!-- Le JS -->
+	<script src="/static/jquery-1.8.3.js"></script>
+	<script src="/static/jquery-ui.js"></script>
+	<script type="text/javascript" src="/static/bootstrap.rtl.js"></script>	
+	<script>
+	$(function() {
+		$("[id^=datepicker]").datepicker();
+	});
+	</script>
+	{% block head %}
+	{% endblock head %}
+
+</head>
+
+
+<body onload="prettyPrint()">
+
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
+				<a class="brand" href="#">לחזור</a>
+				<div class="nav-collapse pull-left">
+					<ul class="nav">
+						<li class="active"><a href="#">תל-אביב/חיפה</a></li>
+						<li><a href="#">ירושלים/באר-שבע</a></li>
+						<li><a href="#">תל-חי/נהריה</a></li>
+					</ul>
+				</div><!--/.nav-collapse -->
+			</div><!--/.container -->
+		</div><!--/.navbar-inner -->
+	</div><!--/.navbar -->
+
+	<!-- BODY -->	
+	<div class="row-fluid">
+		<div class="span4">
+
+			<form class="form-horizontal" action="/" method="post">
+				<fieldset>
+					<div class="control-group">
+
+						<div class="controls">
+							<h4>הרשמה</h4>
+							<label class="radio">
+								<input type="radio" name="source" id="source1" value="north" checked>
+								צפונה
+							</label>
+							<label class="radio">
+								<input type="radio" name="source" id="source2" value="south">
+								דרומה
+							</label></div></div>
+							<div class="control-group">
+
+								<label class="control-label" for="datepicker_leaving">יוצאים</label>
+								<div class="controls">
+									<input type="text" id="datepicker_leaving" name="leaving" /></div>
+								</div>  <div class="control-group">
+
+								<label class="control-label" for="datepicker_arriving">מגיעים</label>
+								<div class="controls">
+									<input type="text" id="datepicker_arriving" name="arriving" /></div>
+								</div> 
+								<div class="control-group">
+									<label class="control-label" for="name">שם</label>
+									<div class="controls">
+										<input type="text" placeholder="שמיל החתול" name="name">
+									</div> </div>  <div class="control-group">
+									<label class="control-label" for="email">אימייל</label> 
+									<div class="controls">
+										<input type="text" placeholder="shmil@catmail.com" name="email">
+									</div>   </div>  
+									<div class="control-group">
+										<div class="controls">
+											<button type="submit" class="btn">אישור</button>
+										</div>   </div>  
+									</fieldset>
+								</form>
+
+							</div>
+							<div class="span4">
+
+								<h4>צפונה</h4>
+								<table class="table table-condensed" id="north">
+									<thead>
+										<tr>
+											<th>
+												שם
+											</th>
+											<th>
+												יוצאים
+											</th>
+											<th>
+												חוזרים
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>
+												יוסי
+											</td>
+											<td>
+												22.12.12
+											</td>
+											<td>
+												25.12.12
+											</td>
+										</tr>
+										<tr>
+											<td>
+												מיקי
+											</td>
+											<td>
+												23.12.12
+											</td>
+											<td>
+												26.12.12
+											</td>
+										</tr>
+										<tr>
+											<td>
+												מירב
+											</td>
+											<td>
+												23.12.12
+											</td>
+											<td>
+												26.12.12
+											</td>
+										</tr>
+										<tr>
+											<td>
+												דני
+											</td>
+											<td>
+												24.12.12
+											</td>
+											<td>
+												27.12.12
+											</td>
+										</tr>
+									</tbody>
+								</table>
+
+								<h4>דרומה</h4>
+
+								<table class="table table-condensed" id="south">
+									<thead>
+										<tr>
+											<th>
+												שם
+											</th>
+											<th>
+												יוצאים
+											</th>
+											<th>
+												חוזרים
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>
+												שמעון
+											</td>
+											<td>
+												22.12.12
+											</td>
+											<td>
+												25.12.12
+											</td>
+										</tr>
+										<tr>
+											<td>
+												dror
+											</td>
+											<td>
+												23.12.12
+											</td>
+											<td>
+												26.12.12
+											</td>
+										</tr>
+										<tr>
+											<td>
+												ניצן וארז
+											</td>
+											<td>
+												23.12.12
+											</td>
+											<td>
+												26.12.12
+											</td>
+										</tr>
+										<tr>
+											<td>
+												הנתנייתים
+											</td>
+											<td>
+												24.12.12
+											</td>
+											<td>
+												27.12.12
+											</td>
+										</tr>
+									</tbody>
+								</table>
+
+							</div>
+							<div class="span4">
+								<h4>מפת האיזור</h4>
+								<!-- Google Maps -->
+								<iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=d&amp;source=s_d&amp;saddr=%D7%AA%D7%9C+%D7%90%D7%91%D7%99%D7%91&amp;daddr=%D7%97%D7%99%D7%A4%D7%94&amp;hl=he&amp;geocode=FW5K6QEd26oSAikffDsZpkwdFTGQP5bAonL7wQ%3BFZnz9AEdgqoVAilF6A11TLodFTGaUoEqmCNdww&amp;aq=&amp;sll=32.448335,34.875935&amp;sspn=1.258536,2.705383&amp;mra=ls&amp;ie=UTF8&amp;t=m&amp;ll=32.448335,34.875935&amp;spn=0.76419,0.19679&amp;output=embed"></iframe><br /><small><a href="http://maps.google.com/maps?f=d&amp;source=embed&amp;saddr=%D7%AA%D7%9C+%D7%90%D7%91%D7%99%D7%91&amp;daddr=%D7%97%D7%99%D7%A4%D7%94&amp;hl=he&amp;geocode=FW5K6QEd26oSAikffDsZpkwdFTGQP5bAonL7wQ%3BFZnz9AEdgqoVAilF6A11TLodFTGaUoEqmCNdww&amp;aq=&amp;sll=32.448335,34.875935&amp;sspn=1.258536,2.705383&amp;mra=ls&amp;ie=UTF8&amp;t=m&amp;ll=32.448335,34.875935&amp;spn=0.76419,0.19679" style="color:#0000FF;text-align:left">הצג מפה גדולה יותר</a></small>
+								<!-- Google Maps -->
+							</div>
+
+
+						</div>
+
+						<!-- FOOTER -->
+						<div class="row-fluid">
+							<div class="span10 offset1">
+								<footer class="colophon"> 
+									{% block footer %}
+									{% endblock footer %}
+
+									<ul class="quick-links">
+										<li> 
+											<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+												<img alt="Creative Commons License" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png"></a>							
+											</li>
+											<li>Yoav Ram</li>
+											<li><a href="http://blog.getbootstrap.com/">Twitter Bootstrap</a></li>
+											<li><a href="http://glyphicons.com/" title="CC BY-SA 3.0">Glyphicons Free</a></li>
+											<li><a href="http://python.org/">Python</a></li>
+											<li><a href="http://flask.pocoo.org/">Flask</a></li>
+											<li><a href="http://www.github.com/">GitHub</a></li>	
+											<li><a href="https://github.com/yoavram/volver">Volver</a></li>
+										</ul>
+
+									</footer>
+								</div>
+							</div>
+
+						</body>
+						</html>
