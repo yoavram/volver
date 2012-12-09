@@ -1,50 +1,50 @@
 <!DOCTYPE html>
 <html lang="en" dir="rtl">
 <head>
-<title>{% block title %} Volver {% endblock title %}</title>
-<meta name="description" content="" />
-<meta name="author" content="Yoav Ram">
-<meta name="keywords" content="">
-<meta charset="UTF-8">
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<link rel="icon" type="image/ico" href="/static/favicon.ico">
+	<title>{% block title %} Volver {% endblock title %}</title>
+	<meta name="description" content="" />
+	<meta name="author" content="Yoav Ram">
+	<meta name="keywords" content="">
+	<meta charset="UTF-8">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<link rel="icon" type="image/ico" href="/static/favicon.ico">
 
-<!-- Le style -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="/static/style.css" rel="stylesheet">
-<link rel="stylesheet" href="/static/jquery-ui.css" />
-<link href="/static/bootstrap.rtl.css" rel="stylesheet">
-<link href="/static/glyphicons.css" rel="stylesheet">
-<style type="text/css">
-[class^="icon-"] { background-image: url("/static/glyphicons-halflings-rtl.png"); } 
-[class*="icon-white"] { background-image: url("/static/glyphicons-halflings-white-rtl.png"); } 
-[class^="glyphicon-"] { background-image: url("/static/glyphicons.png"); } 
-</style>
+	<!-- Le style -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="/static/style.css" rel="stylesheet">
+	<link rel="stylesheet" href="/static/jquery-ui.css" />
+	<link href="/static/bootstrap.rtl.css" rel="stylesheet">
+	<link href="/static/glyphicons.css" rel="stylesheet">
+	<style type="text/css">
+	[class^="icon-"] { background-image: url("/static/glyphicons-halflings-rtl.png"); } 
+	[class*="icon-white"] { background-image: url("/static/glyphicons-halflings-white-rtl.png"); } 
+	[class^="glyphicon-"] { background-image: url("/static/glyphicons.png"); } 
+	</style>
 
-<!-- Le JS -->
-<script src="/static/jquery-1.8.3.js"></script>
-<script src="/static/jquery-ui.js"></script>
-<script type="text/javascript" src="/static/bootstrap.rtl.js"></script>	
-<script>
-$(function() {
-$("[id^=datepicker]").datepicker({ dateFormat: "dd/mm/yy" });
-});
-</script>
-{% block head %}
-{% endblock head %}
+	<!-- Le JS -->
+	<script src="/static/jquery-1.8.3.js"></script>
+	<script src="/static/jquery-ui.js"></script>
+	<script type="text/javascript" src="/static/bootstrap.rtl.js"></script>	
+	<script>
+	$(function() {
+		$("[id^=datepicker]").datepicker({ dateFormat: "dd/mm/yy" });
+	});
+	</script>
+	{% block head %}
+	{% endblock head %}
 
 </head>
 
 
 <body onload="prettyPrint()">
 
-<div class="navbar navbar-fixed-top">
-<div class="navbar-inner">
-<div class="container">
-<a class="brand" href="#">לחזור <img src='/static/Volver_99x40.png' class="img-rounded">
-	Volver</a>
-<div class="nav-collapse">
-	<ul class="nav">
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="brand" href="#">לחזור <img src='/static/Volver_99x40.png' class="img-rounded">
+					Volver</a>
+					<div class="nav-collapse">
+						<ul class="nav">
 	<!--li><a href="#">ירושלים/באר-שבע</a></li>
 	<li><a href="#">תל-חי/נהריה</a></li-->
 	</ul>
@@ -55,46 +55,64 @@ $("[id^=datepicker]").datepicker({ dateFormat: "dd/mm/yy" });
 
 <!-- BODY -->	
 <div class="row-fluid">
-<div class="span4">
+	<div class="span4">
 
-<form class="form-horizontal" action="/" method="post">
-<fieldset>
-<div class="control-group">
-
-<div class="controls">
-	<h4>הרשמה</h4>
-	<label class="radio">
-		<input type="radio" name="direction" id="direction1" value="north" checked>
-		צפונה
-	</label>
-	<label class="radio">
-		<input type="radio" name="direction" id="direction2" value="south">
-		דרומה
-	</label></div></div>
-	<div class="control-group">
-
-		<label class="control-label" for="datepicker_leaving">יוצאים</label>
-		<div class="controls">
-			<input type="text" id="datepicker_leaving" name="leaving" /></div>
-		</div>  <div class="control-group">
-
-		<label class="control-label" for="datepicker_arriving">מגיעים</label>
-		<div class="controls">
-			<input type="text" id="datepicker_arriving" name="arriving" /></div>
-		</div> 
-		<div class="control-group">
-			<label class="control-label" for="name">שם</label>
-			<div class="controls">
-				<input type="text" placeholder="שמיל החתול" name="name">
-			</div> </div>  <div class="control-group">
-			<label class="control-label" for="email">אימייל</label> 
-			<div class="controls">
-				<input type="text" placeholder="shmil@catmail.com" name="email">
-			</div>   </div>  
-			<div class="control-group">
-				<div class="controls">
-					<button type="submit" class="btn">אישור</button>
-				</div>   </div>  
+		<form class="form-horizontal" action="/" method="post">
+			<fieldset>
+				<div class="control-group">
+					<h4>הרשמה</h4>
+					<label class="control-label" for="source">
+						מוצא
+					</label>
+					<div class="controls">
+						<select name="source" id="source">
+							{% for v in ["פוארטו מונט", "ברילוצ'ה", "אל בולסון", "אל צ'אלטן", "אל קלפאטה", "פוקון", "אחר..."] %}
+							<option value="{{ v }}">{{ v }}</option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="destination">
+						יעד
+					</label>
+					<div class="controls">
+						<select name="destination" id="destination">
+							{% for v in ["פוארטו מונט", "ברילוצ'ה", "אל בולסון", "אל צ'אלטן", "אל קלפאטה", "פוקון", "אחר..."] %}
+							<option value="{{ v }}">{{ v }}</option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="datepicker_leaving">יוצאים</label>
+					<div class="controls">
+						<input type="text" id="datepicker_leaving" name="leaving" />
+					</div>
+				</div>  
+				<div class="control-group">
+					<label class="control-label" for="datepicker_arriving">מגיעים</label>
+					<div class="controls">
+						<input type="text" id="datepicker_arriving" name="arriving" />
+					</div>
+				</div> 
+				<div class="control-group">
+					<label class="control-label" for="name">שם</label>
+					<div class="controls">
+						<input type="text" placeholder="שמיל החתול" name="name">
+					</div> 
+				</div>  
+				<div class="control-group">
+					<label class="control-label" for="email">אימייל</label> 
+					<div class="controls">
+						<input type="text" placeholder="shmil@catmail.com" name="email">
+					</div>   
+				</div>  
+				<div class="control-group">
+					<div class="controls">
+						<button type="submit" class="btn">אישור</button>
+					</div>   
+				</div>  
 			</fieldset>
 		</form>
 
@@ -201,9 +219,9 @@ $("[id^=datepicker]").datepicker({ dateFormat: "dd/mm/yy" });
 				<li>Copyright © 2012 Yoav Ram</li>
 			</ul>
 
-			</footer>
-		</div>
+		</footer>
 	</div>
+</div>
 
 </body>
 </html>
