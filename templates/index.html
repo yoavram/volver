@@ -26,17 +26,34 @@
 	<script src="/static/jquery-ui.js"></script>
 	<script type="text/javascript" src="/static/bootstrap.rtl.js"></script>	
 	<script>
+	function custom_change(select) {
+		var element = select.find('option:selected'); 
+		var option = element.attr("value"); 
+		var custom = $('#custom_' + select.attr('id'));
+		if (option=='אחר...') {
+			custom.show();
+		} else {
+			custom.hide();
+		}
+	}
 	$(function() {
-		$("[id^=datepicker]").datepicker({ dateFormat: "dd/mm/yy" });
+		$("[id^=datepicker]").datepicker({ dateFormat: "dd/mm/yy", defaultDate: "+0", minDate: "+0" });
 	});
+	$(function() { 
+		$("#source").change(function(){ 
+			custom_change($(this));
+		}); 
+		$("#destination").change(function(){ 
+			custom_change($(this));
+		}); 
+	}); 
 	</script>
 	{% block head %}
 	{% endblock head %}
 
 </head>
 
-
-<body onload="prettyPrint()">
+<body>
 
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
@@ -60,16 +77,32 @@
 		<form class="form-horizontal" action="/" method="post">
 			<fieldset>
 				<div class="control-group">
-					<h4>הרשמה</h4>
+					<div class="controls">
+						<h4>הרשמה</h4>
+						<label class="radio">
+							<input type="radio" name="direction" id="direction1" value="north" checked>
+							צפונה
+						</label>
+						<label class="radio">
+							<input type="radio" name="direction" id="direction2" value="south">
+							דרומה
+						</label>
+					</div>
+				</div>
+				<div class="control-group">
 					<label class="control-label" for="source">
 						מוצא
 					</label>
 					<div class="controls">
-						<select name="source" id="source">
+						<select name="source" id="source" required>
 							{% for v in ["פוארטו מונט", "ברילוצ'ה", "אל בולסון", "אל צ'אלטן", "אל קלפאטה", "פוקון", "אחר..."] %}
 							<option value="{{ v }}">{{ v }}</option>
 							{% endfor %}
 						</select>
+						<div id="custom_source" style="display: none;">
+							<p></p>
+							<input type="text" name="custom_source" placeholder="לאן?" />
+						</div>
 					</div>
 				</div>
 				<div class="control-group">
@@ -77,35 +110,39 @@
 						יעד
 					</label>
 					<div class="controls">
-						<select name="destination" id="destination">
+						<select name="destination" id="destination" required>
 							{% for v in ["פוארטו מונט", "ברילוצ'ה", "אל בולסון", "אל צ'אלטן", "אל קלפאטה", "פוקון", "אחר..."] %}
 							<option value="{{ v }}">{{ v }}</option>
 							{% endfor %}
 						</select>
+						<div id="custom_destination" style="display: none;">
+							<p></p>
+							<input type="text" name="custom_destination" placeholder="לאן?" />
+						</div>
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="datepicker_leaving">יוצאים</label>
 					<div class="controls">
-						<input type="text" id="datepicker_leaving" name="leaving" />
+						<input type="text" id="datepicker_leaving" name="leaving" required/>
 					</div>
 				</div>  
 				<div class="control-group">
 					<label class="control-label" for="datepicker_arriving">מגיעים</label>
 					<div class="controls">
-						<input type="text" id="datepicker_arriving" name="arriving" />
+						<input type="text" id="datepicker_arriving" name="arriving" required/>
 					</div>
 				</div> 
 				<div class="control-group">
 					<label class="control-label" for="name">שם</label>
 					<div class="controls">
-						<input type="text" placeholder="שמיל החתול" name="name">
+						<input type="text" placeholder="שמיל החתול" name="name" required>
 					</div> 
 				</div>  
 				<div class="control-group">
 					<label class="control-label" for="email">אימייל</label> 
 					<div class="controls">
-						<input type="text" placeholder="shmil@catmail.com" name="email">
+						<input type="text" placeholder="shmil@catmail.com" name="email" required>
 					</div>   
 				</div>  
 				<div class="control-group">
@@ -127,7 +164,13 @@
 						שם
 					</th>
 					<th>
+						מוצא
+					</th>
+					<th>
 						יוצאים
+					</th>
+					<th>
+						יעד
 					</th>
 					<th>
 						מגיעים
@@ -141,7 +184,13 @@
 						<a href="mailto:{{ p.email }}">{{ p.name }}</a>
 					</td>
 					<td>
+						{{ p.source }}
+					</td>
+					<td>
 						{{ p.leaving|format_date }}
+					</td>
+					<td>
+						{{ p.destination }}
 					</td>
 					<td>
 						{{ p.arriving|format_date }}
@@ -160,7 +209,13 @@
 						שם
 					</th>
 					<th>
+						מוצא
+					</th>
+					<th>
 						יוצאים
+					</th>
+					<th>
+						יעד
 					</th>
 					<th>
 						מגיעים
@@ -174,7 +229,13 @@
 						<a href="mailto:{{ p.email }}">{{ p.name }}</a>
 					</td>
 					<td>
+						{{ p.source }}
+					</td>
+					<td>
 						{{ p.leaving|format_date }}
+					</td>
+					<td>
+						{{ p.destination }}
 					</td>
 					<td>
 						{{ p.arriving|format_date }}
@@ -187,7 +248,7 @@
 	</div>
 	<div class="span4">
 		<h4>מפת איזור קארטרה אוסטראל - Carretera Austral</h4>
-		{% include 'map.html' %}
+		
 	</div>
 
 

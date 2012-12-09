@@ -22,6 +22,10 @@ def string_from_datetime(datetime_obj):
 def process_form(form):
 	form['leaving'] = datetime_from_string(form['leaving'])
 	form['arriving'] = datetime_from_string(form['arriving'])
+	if form['source'].endswith('...'):
+		form['source'] = form['custom_source']
+	if form['destination'].endswith('...'):
+		form['destination'] = form['custom_destination']		
 	return form
 
 
@@ -45,8 +49,8 @@ app.config['MONGO_DBNAME'] = db_name_from_uri(app.config['MONGO_URI'])
 app.jinja_env.filters['format_date'] = string_from_datetime
 
 data = [
-		{'name':u'uri', 'direction':'north', 'leaving':datetime_from_string('22/12/2012'), 'arriving':datetime_from_string('23/12/2012'), 'email':'uri@gmail.com'},
-		{'name':u'מיכל', 'direction':'south', 'leaving':datetime_from_string('24/12/2012'), 'arriving':datetime_from_string('26/12/2012'), 'email':'uri@gmail.com'}
+		{'name':u'uri', 'direction':'north', 'leaving':datetime_from_string('22/12/2012'), 'arriving':datetime_from_string('23/12/2012'), 'email':'uri@gmail.com', 'source':'bariloche', 'destination':'al poson'},
+		{'name':u'מיכל', 'direction':'south', 'leaving':datetime_from_string('24/12/2012'), 'arriving':datetime_from_string('26/12/2012'), 'email':'uri@gmail.com', 'source':'al poson', 'destination':'bariloche'}
 	]
 
 
@@ -60,6 +64,7 @@ def add_post(post):
 	# return mongo.db.tlv_hai.insert
 	data.append(post)
 	return 1
+
 
 @app.route("/",  methods=['GET', 'POST'])
 def index():
