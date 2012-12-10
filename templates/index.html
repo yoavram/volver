@@ -47,6 +47,7 @@
 	function hide_table(id) {
 		$('#' + id + '_table').hide();
 	}
+
 	$(function() {
 		$("[id^=datepicker]").datepicker({ 
 			dateFormat: "dd/mm/yy", 
@@ -138,9 +139,10 @@
 					</label>
 					<div class="controls">
 						<select name="source" id="source" required>
-							{% for v in ["פוארטו מונט", "ברילוצ'ה", "אל בולסון", "אל צ'אלטן", "אל קלפאטה", "פוקון", "אחר..."] %}
-							<option value="{{ v }}">{{ v }}</option>
+							{% for k,v in sort_atlas_by_field(atlas,reverse=False) %}
+							<option value="{{ v.he }}" lat="{{ v.lat }}" lng="{{ v.lng }}">{{ v.he }}</option>
 							{% endfor %}
+							<option value='אחר...'>אחר...</option>
 						</select>
 						<div id="custom_source" style="display: none;">
 							<p></p>
@@ -154,9 +156,10 @@
 					</label>
 					<div class="controls">
 						<select name="destination" id="destination" required>
-							{% for v in ["פוארטו מונט", "ברילוצ'ה", "אל בולסון", "אל צ'אלטן", "אל קלפאטה", "פוקון", "אחר..."] %}
-							<option value="{{ v }}">{{ v }}</option>
+							{% for k,v in sort_atlas_by_field(atlas,reverse=True) %}
+							<option value="{{ v.he }}" lat="{{ v.lat }}" lng="{{ v.lng }}">{{ v.he }}</option>
 							{% endfor %}
+							<option value='אחר...'>אחר...</option>
 						</select>
 						<div id="custom_destination" style="display: none;">
 							<p></p>

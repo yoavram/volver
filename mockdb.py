@@ -14,7 +14,7 @@ class MockDb:
 
 
 	def insert(self, post):
-		self.cursor.append(post)
+		self.data.append(post)
 		return 1
 
 

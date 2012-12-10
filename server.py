@@ -35,6 +35,9 @@ def string_from_datetime(datetime_obj):
 	return datetime_obj.strftime(DATE_FORMAT)
 
 
+def sort_atlas_by_field(atlas, field='lat', reverse=False):
+	return sorted(atlas.items(), key=lambda x: x[1][field], reverse=reverse)
+
 def process_form(form):
 	form['leaving'] = datetime_from_string(form['leaving'])
 	form['arriving'] = datetime_from_string(form['arriving'])
@@ -68,6 +71,7 @@ else:
 
 app.jinja_env.filters['format_date'] = string_from_datetime
 app.jinja_env.globals['atlas'] = atlas
+app.jinja_env.globals['sort_atlas_by_field'] = sort_atlas_by_field
 
 
 def get_posts():
