@@ -60,6 +60,22 @@
 			custom_change($(this));
 		}); 
 	}); 
+	$(function() {
+		$('#make_match').click(function(){
+			//alert($('#destination').val());
+			//alert($('#datepicker_arriving').val());
+			$.getJSON($SCRIPT_ROOT + '/matches', {
+		        destination: $('#destination').val(),
+		        arriving: $('#datepicker_arriving').val()
+		      }, function(data) {
+		      	$('[id^=post_]').removeClass();
+		        for (i in data.result) {
+		        	var oid = data.result[i];
+		        	$('#post_' + oid).addClass('success');
+		        }
+		      });		      
+		});
+	})
 	</script>
 	{% block head %}
 	{% endblock head %}
@@ -86,7 +102,6 @@
 <!-- BODY -->	
 <div class="row-fluid">
 	<div class="span4">
-
 		<form class="form-horizontal" action="/" method="post">
 			<fieldset>
 				<div class="control-group">
@@ -161,6 +176,7 @@
 				<div class="control-group">
 					<div class="controls">
 						<button type="submit" class="btn">אישור</button>
+						<button class="btn" id="make_match">שדך</button>
 					</div>   
 				</div>  
 			</fieldset>
