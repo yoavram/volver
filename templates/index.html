@@ -180,16 +180,16 @@
 		{% with posts=posts, direction = 'all'%}
         		{% include "_table.html" %}        
     	{% endwith %}
-		{% with posts=posts, direction = 'north', hide = True %}
+		{% with posts=posts.rewind(), direction = 'north', hide = True %}
         		{% include "_table.html" %}        
     	{% endwith %}
-		{% with posts = posts, direction = 'south', hide = True %}
+		{% with posts = posts.rewind(), direction = 'south', hide = True %}
         		{% include "_table.html" %}        
     	{% endwith %}
 	</div>
 	<div class="span4">
 		<h4>מפת איזור קארטרה אוסטראל - Carretera Austral</h4>
-		
+		{% include 'map.html' %}
 	</div>
 
 

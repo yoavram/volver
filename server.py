@@ -58,28 +58,28 @@ if app.debug:
 	print " * Running in debug mode"
 
 app.config['MONGO_DBNAME'] = db_name_from_uri(app.config['MONGO_URI'])
-#mongo = PyMongo(app)
-#if mongo:
-#	print " * Connection to database established"
+mongo = PyMongo(app)
+if mongo:
+	print " * Connection to database established"
 
 app.jinja_env.filters['format_date'] = string_from_datetime
 
 data = [
 		{'name':u'uri', 'direction':'north', 'leaving':datetime_from_string('22/12/2012'), 'arriving':datetime_from_string('23/12/2012'), 'email':'uri@gmail.com', 'source':'bariloche', 'destination':'al poson'},
 		{'name':u'מיכל', 'direction':'south', 'leaving':datetime_from_string('24/12/2012'), 'arriving':datetime_from_string('26/12/2012'), 'email':'uri@gmail.com', 'source':'al poson', 'destination':'bariloche'}
-	]
+]
 
 
 def get_posts():
-	# cursor = mongo.db.tlv_hai.find(sort=[('leaving', ASCENDING)])
-	# return cursor, cursor.count()
-	return data, len(data)
+	cursor = mongo.db.CarreteraAustralDev.find(sort=[('leaving', ASCENDING)])
+	return cursor, cursor.count()
+	#return data, len(data)
 
 
 def add_post(post):
-	# return mongo.db.tlv_hai.insert
-	data.append(post)
-	return 1
+	return mongo.db.CarreteraAustralDev.insert(post)
+	#data.append(post)
+	#return 1
 
 
 @app.route("/",  methods=['GET', 'POST'])
