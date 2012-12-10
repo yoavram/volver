@@ -39,11 +39,11 @@
 			custom.hide();
 		}
 	}
-	function change_tables(on, off) {
-		$('#' + on + '_table').show();
-		for (x in off) {
-			$('#' + off[x] + '_table').hide();
-		}
+	function show_table(id) {
+		$('#' + id + '_table').show();
+	}
+	function hide_table(id) {
+		$('#' + id + '_table').hide();
 	}
 	$(function() {
 		$("[id^=datepicker]").datepicker({ 
@@ -170,11 +170,11 @@
 	<div class="span4">
 		<ul class="nav nav-tabs">
 		  <li class="active">
-		  <a href="#" onclick="javascript:change_tables('all',['north','south'])" data-toggle="tab"><h4>הכל</h4></a>
+		  <a href="#" onclick="javascript:show_table('all');hide_table('north');hide_table('south');" data-toggle="tab"><h4>הכל</h4></a>
 		  </li>
-		  <li>  <a href="#" onclick="javascript:change_tables('north',['south','all'])" data-toggle="tab"><h4>צפונה</h4></a>
+		  <li><a href="#" onclick="javascript:show_table('north');hide_table('all');hide_table('south');" data-toggle="tab"><h4>צפונה</h4></a>
 		  </li>
-		  <li><a href="#" onclick="javascript:change_tables('south',['north','all'])" data-toggle="tab"><h4>דרומה</h4></a>
+		  <li><a href="#" onclick="javascript:show_table('south');hide_table('north');hide_table('all');" data-toggle="tab"><h4>דרומה</h4></a>
 		  </li>	
 		</ul>
 		{% with posts=posts, direction = 'all'%}
