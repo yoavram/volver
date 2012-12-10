@@ -28,7 +28,9 @@
 	
 	<script>
 	$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-
+	function error_div(msg) {
+		return '<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button>'+msg+'</div>'
+	}
 	function custom_change(select) {
 		var element = select.find('option:selected'); 
 		var option = element.attr("value"); 
@@ -62,11 +64,22 @@
 	}); 
 	$(function() {
 		$('#make_match').click(function(){
-			//alert($('#destination').val());
-			//alert($('#datepicker_arriving').val());
+			var dest = $('#destination').val();
+			if (dest == 'אחר...') {
+				dest = $('input[name=custom_destination]').val()
+			}
+			var arr = $('#datepicker_arriving').val();
+			if (!dest) {
+				$('#error').append(error_div("נא לבחור יעד"));
+				return false;
+			}
+			if (!arr) {
+			$('#error').append(error_div("נא לבחור תאריך הגעה"));
+				return false;	
+			}
 			$.getJSON($SCRIPT_ROOT + '/matches', {
-		        destination: $('#destination').val(),
-		        arriving: $('#datepicker_arriving').val()
+		        destination: dest,
+		        arriving: arr
 		      }, function(data) {
 		      	$('[id^=post_]').removeClass();
 		        for (i in data.result) {
@@ -107,6 +120,8 @@
 				<div class="control-group">
 					<div class="controls">
 						<h4>הרשמה</h4>
+						<div id="error" style='width: 80%;'>						
+						</div>
 						<label class="radio">
 							<input type="radio" name="direction" id="direction1" value="north" checked>
 							צפונה
@@ -175,10 +190,10 @@
 				</div>  
 				<div class="control-group">
 					<div class="controls">
-						<button type="submit" class="btn">אישור</button>
-						<button class="btn" id="make_match">שדך</button>
+						<button class="btn btn-inverse" type="submit">הרשמה</button>
+						<a class="btn" id="make_match" style="margin-right: 10px" title="מלא את 'יעד' ואת מגיעים'">חיפוש</a>
 					</div>   
-				</div>  
+				</div>  				
 			</fieldset>
 		</form>
 
