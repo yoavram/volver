@@ -5,6 +5,7 @@ from flask.ext.pymongo import PyMongo, ASCENDING
 from datetime import datetime
 from bson import ObjectId
 import simplejson
+from atlas import atlas
 
 DATE_FORMAT = "%d/%m/%Y"
 
@@ -19,7 +20,6 @@ class MongoDocumentEncoder(simplejson.JSONEncoder):
 
 def jsonify(*args, **kwargs):
     return Response(simplejson.dumps(dict(*args, **kwargs), cls=MongoDocumentEncoder), mimetype='application/json')
-
 
 
 def db_name_from_uri(full_uri):
@@ -56,31 +56,28 @@ app.config.from_object(__name__)
 app.config.from_pyfile('config.py', True)
 if app.debug:
 	print " * Running in debug mode"
+	import mockdb
+	collection = mockdb.MockDb()
+else:
+	app.config['MONGO_DBNAME'] = db_name_from_uri(app.config['MONGO_URI'])
+	mongo = PyMongo(app)
+	if mongo:
+		print " * Connection to database established"
+		collection = mongo.db.CarreteraAustralDev
 
-app.config['MONGO_DBNAME'] = db_name_from_uri(app.config['MONGO_URI'])
-mongo = PyMongo(app)
-if mongo:
-	print " * Connection to database established"
 
 app.jinja_env.filters['format_date'] = string_from_datetime
-
-data = [
-		{'name':u'uri', 'direction':'north', 'leaving':datetime_from_string('22/12/2012'), 'arriving':datetime_from_string('23/12/2012'), 'email':'uri@gmail.com', 'source':'bariloche', 'destination':'al poson'},
-		{'name':u'מיכל', 'direction':'south', 'leaving':datetime_from_string('24/12/2012'), 'arriving':datetime_from_string('26/12/2012'), 'email':'uri@gmail.com', 'source':'al poson', 'destination':'bariloche'}
-]
+app.jinja_env.globals['atlas'] = atlas
 
 
 def get_posts():
-	cursor = mongo.db.CarreteraAustralDev.find(sort=[('leaving', ASCENDING)])
+	cursor = collection.find(sort=[('leaving', ASCENDING)])
 	return cursor, cursor.count()
-	#return data, len(data)
-
+	
 
 def add_post(post):
-	return mongo.db.CarreteraAustralDev.insert(post)
-	#data.append(post)
-	#return 1
-
+	return collection.insert(post)
+	
 
 @app.route("/",  methods=['GET', 'POST'])
 def index():
@@ -98,7 +95,7 @@ def index():
 def make_matches():
 	arriving = datetime_from_string(request.args.get('arriving', type=str))
 	destination = request.args.get('destination', type=unicode)
-	matches = mongo.db.CarreteraAustralDev.find({'leaving':arriving, 'source':destination})
+	matches = collection.find({'leaving':arriving, 'source':destination})
 	oid = [str(p['_id']) for p in matches]
 	return jsonify(result=oid)
 
@@ -107,3 +104,4 @@ if __name__ == '__main__':
 	# Bind to PORT if defined, otherwise default to 5000.
 	port = int(os.environ.get('PORT', 5001))
 	app.run(host='0.0.0.0', port=port, debug=app.debug)
+	print "Finished"
