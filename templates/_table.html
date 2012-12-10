@@ -1,0 +1,42 @@
+<table class="table table-condensed" id="{{ direction }}_table" {% if hide %} style="display: none;" {% endif %}>
+	<thead>
+		<tr>
+			<th>
+				שם
+			</th>
+			<th>
+				מוצא
+			</th>
+			<th>
+				יוצאים
+			</th>
+			<th>
+				יעד
+			</th>
+			<th>
+				מגיעים
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for p in posts if direction and p.direction == direction %}
+		<tr>
+			<td>
+				<a href="mailto:{{ p.email }}">{{ p.name }}</a>
+			</td>
+			<td>
+				{{ p.source }}
+			</td>
+			<td>
+				{{ p.leaving|format_date }}
+			</td>
+			<td>
+				{{ p.destination }}
+			</td>
+			<td>
+				{{ p.arriving|format_date }}
+			</td>
+		</tr>				
+		{% endfor %}
+	</tbody>
+</table>

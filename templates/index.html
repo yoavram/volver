@@ -27,6 +27,8 @@
 	<script type="text/javascript" src="/static/bootstrap.rtl.js"></script>	
 	
 	<script>
+	$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+
 	function custom_change(select) {
 		var element = select.find('option:selected'); 
 		var option = element.attr("value"); 
@@ -38,11 +40,17 @@
 		}
 	}
 	function change_tables(on, off) {
+		on = on || 'north';
+		off = off || 'south';
 		$('#' + on + '_table').show();
 		$('#' + off + '_table').hide();
 	}
 	$(function() {
-		$("[id^=datepicker]").datepicker({ dateFormat: "dd/mm/yy", defaultDate: "+0", minDate: "+0" });
+		$("[id^=datepicker]").datepicker({ 
+			dateFormat: "dd/mm/yy", 
+			defaultDate: "+0", 
+			minDate: "+0"
+		});
 	});
 	$(function() { 
 		$("#source").change(function(){ 
@@ -166,91 +174,12 @@
 		  </li>
 		  <li><a href="#" onclick="javascript:change_tables('south','north')" data-toggle="tab"><h4>דרומה</h4></a></li>
 		</ul>
-		<table class="table table-condensed" id="north_table">
-			<thead>
-				<tr>
-					<th>
-						שם
-					</th>
-					<th>
-						מוצא
-					</th>
-					<th>
-						יוצאים
-					</th>
-					<th>
-						יעד
-					</th>
-					<th>
-						מגיעים
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for p in posts if p.direction =='north' %}
-				<tr>
-					<td>
-						<a href="mailto:{{ p.email }}">{{ p.name }}</a>
-					</td>
-					<td>
-						{{ p.source }}
-					</td>
-					<td>
-						{{ p.leaving|format_date }}
-					</td>
-					<td>
-						{{ p.destination }}
-					</td>
-					<td>
-						{{ p.arriving|format_date }}
-					</td>
-				</tr>				
-				{% endfor %}
-			</tbody>
-		</table>
-		<table class="table table-condensed" id="south_table" style="display: none;">
-			<thead>
-				<tr>
-					<th>
-						שם
-					</th>
-					<th>
-						מוצא
-					</th>
-					<th>
-						יוצאים
-					</th>
-					<th>
-						יעד
-					</th>
-					<th>
-						מגיעים
-					</th>
-				</tr>
-			</thead>
-			<tbody>				
-				{% for p in posts if p.direction =='south' %}
-				<tr>
-					<td>
-						<a href="mailto:{{ p.email }}">{{ p.name }}</a>
-					</td>
-					<td>
-						{{ p.source }}
-					</td>
-					<td>
-						{{ p.leaving|format_date }}
-					</td>
-					<td>
-						{{ p.destination }}
-					</td>
-					<td>
-						{{ p.arriving|format_date }}
-					</td>
-				</tr>				
-				{% endfor %}
-			</tbody>
-		</table>
-
+		{% with posts=posts, direction = 'north' %}
+        		{% include "_table.html" %}        
+    	{% endwith %}
+		{% with posts = posts, direction = 'south', hide = True %}
+        		{% include "_table.html" %}        
+    	{% endwith %}
 	</div>
 	<div class="span4">
 		<h4>מפת איזור קארטרה אוסטראל - Carretera Austral</h4>
@@ -289,6 +218,8 @@
 		</footer>
 	</div>
 </div>
-
+<script type="text/javascript">
+	window.onload=change_tables;
+</script>
 </body>
 </html>
