@@ -40,10 +40,10 @@
 		}
 	}
 	function change_tables(on, off) {
-		on = on || 'north';
-		off = off || 'south';
 		$('#' + on + '_table').show();
-		$('#' + off + '_table').hide();
+		for (x in off) {
+			$('#' + off[x] + '_table').hide();
+		}
 	}
 	$(function() {
 		$("[id^=datepicker]").datepicker({ 
@@ -170,11 +170,17 @@
 	<div class="span4">
 		<ul class="nav nav-tabs">
 		  <li class="active">
-		    <a href="#" onclick="javascript:change_tables('north','south')" data-toggle="tab"><h4>צפונה</h4></a>
+		  <a href="#" onclick="javascript:change_tables('all',['north','south'])" data-toggle="tab"><h4>הכל</h4></a>
 		  </li>
-		  <li><a href="#" onclick="javascript:change_tables('south','north')" data-toggle="tab"><h4>דרומה</h4></a></li>
+		  <li>  <a href="#" onclick="javascript:change_tables('north',['south','all'])" data-toggle="tab"><h4>צפונה</h4></a>
+		  </li>
+		  <li><a href="#" onclick="javascript:change_tables('south',['north','all'])" data-toggle="tab"><h4>דרומה</h4></a>
+		  </li>	
 		</ul>
-		{% with posts=posts, direction = 'north' %}
+		{% with posts=posts, direction = 'all'%}
+        		{% include "_table.html" %}        
+    	{% endwith %}
+		{% with posts=posts, direction = 'north', hide = True %}
         		{% include "_table.html" %}        
     	{% endwith %}
 		{% with posts = posts, direction = 'south', hide = True %}

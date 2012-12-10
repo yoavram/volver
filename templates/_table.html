@@ -19,7 +19,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		{% for p in posts if direction and p.direction == direction %}
+		{% for p in posts if (p.direction == direction) or (direction == 'all') %}
 		<tr>
 			<td>
 				<a href="mailto:{{ p.email }}">{{ p.name }}</a>
