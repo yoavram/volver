@@ -98,12 +98,8 @@ def index():
 def make_matches():
 	arriving = datetime_from_string(request.args.get('arriving', type=str))
 	destination = request.args.get('destination', type=unicode)
-	print 'arriving',arriving
-	print 'destination',destination
 	matches = mongo.db.CarreteraAustralDev.find({'leaving':arriving, 'source':destination})
-	print 'count',matches.count()
 	oid = [str(p['_id']) for p in matches]
-	print 'oids',oid
 	return jsonify(result=oid)
 
 
