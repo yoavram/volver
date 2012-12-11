@@ -2,6 +2,7 @@
 from flask import Flask, request, render_template, redirect, Response
 import os
 from flask.ext.pymongo import PyMongo, ASCENDING 
+from flask.ext.mail import Mail, Message
 from datetime import datetime
 from bson import ObjectId
 import simplejson
@@ -53,16 +54,32 @@ def process_form(form):
 
 # add environment variables using 'heroku config:add VARIABLE_NAME=variable_name'
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
-#GOOGLE_ANALYTICS = os.environ.get('GOOGLE_ANALYTICS', '')
-MONGO_URI = os.environ.get('MONGOLAB_URI')
 EMAIL = 'volver.info.il@gmail.com'
-WEBSITE_URL = 'http://www.volver.com/'
+WEBSITE_URL = 'http://www.volver.co.il/'
+WEBSITE_NAME = u'לחזור - Volver'
 
-# configure app
+# Services
+MONGO_URI = os.environ.get('MONGOLAB_URI')
+#GOOGLE_ANALYTICS = os.environ.get('GOOGLE_ANALYTICS', '')
+
+# SendGrid
+MAIL_SERVER = 'smtp.sendgrid.net'
+MAIL_PORT = 587  
+MAIL_USE_SSL = False
+MAIL_USE_SSL = True
+MAIL_USERNAME = os.environ.get("SENDGRID_USERNAME")
+MAIL_PASSWORD = os.environ.get("SENDGRID_PASSWORD")
+
+
+# init & configure app
 app = Flask(__name__)
 app.config.from_object(__name__)  
 app.config.from_pyfile('config.py', True)
 
+# init mail
+mail = Mail(app)
+
+# init database
 if app.debug:
 	print " * Running in debug mode"
 	import mockdb
@@ -81,6 +98,15 @@ app.jinja_env.filters['format_date'] = string_from_datetime
 app.jinja_env.globals['atlas'] = atlas
 app.jinja_env.globals['sort_atlas_by_field'] = sort_atlas_by_field
 
+
+def send_welcome_mail(recipient_name, recipient_email):
+	msg = Message("ברוך הבא ללחזור!", sender=(WEBSITE_NAME, EMAIL))
+	msg.add_recipient(recipient_email)
+	msg.html = render_template("welcome_mail.html", name=recipient_name, delete_link=WEBSITE_URL)
+	print "Sending mail to", recipient_email
+	mail.send(msg)
+	if app.debug:
+		print msg.html
 
 def get_posts():
 	cursor = get_collection().find(sort=[('leaving', ASCENDING)])
@@ -111,6 +137,7 @@ def index():
 	else:
 		oid = add_post(process_form(request.form.to_dict()))
 		print "Added object to database:", oid
+		send_welcome_mail(request.form['name'], request.form['email'])
 		return redirect('/')
 
 
