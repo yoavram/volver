@@ -66,9 +66,11 @@ MONGO_URI = os.environ.get('MONGOLAB_URI')
 MAIL_SERVER = 'smtp.sendgrid.net'
 MAIL_PORT = 587  
 MAIL_USE_SSL = False
-MAIL_USE_SSL = True
+MAIL_USE_TLS  = True
 MAIL_USERNAME = os.environ.get("SENDGRID_USERNAME")
 MAIL_PASSWORD = os.environ.get("SENDGRID_PASSWORD")
+DEFAULT_MAIL_SENDER = (WEBSITE_NAME, EMAIL)
+TESTING = DEBUG
 
 
 # init & configure app
@@ -100,13 +102,12 @@ app.jinja_env.globals['sort_atlas_by_field'] = sort_atlas_by_field
 
 
 def send_welcome_mail(recipient_name, recipient_email):
-	msg = Message("ברוך הבא ללחזור!", sender=(WEBSITE_NAME, EMAIL))
+	msg = Message(u"ברוך הבא ללחזור!")
 	msg.add_recipient(recipient_email)
-	msg.html = render_template("welcome_mail.html", name=recipient_name, delete_link=WEBSITE_URL)
+	msg.html = render_template("welcome_mail.html", name=recipient_name, delete_link=app.config['WEBSITE_URL'])
 	print "Sending mail to", recipient_email
 	mail.send(msg)
-	if app.debug:
-		print msg.html
+
 
 def get_posts():
 	cursor = get_collection().find(sort=[('leaving', ASCENDING)])
