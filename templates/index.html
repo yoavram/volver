@@ -48,6 +48,10 @@
       function hide_table(id) {
       	$('#' + id + '_table').hide();
       }
+      function reverse_children_not_last(parent) {
+      	var len = parent.children().size();
+      	parent.children().each(function(i,child){if (i!=len-1){parent.prepend(child);}})
+      }
 
       $(function() {
       	$("[id^=datepicker]").datepicker({ 
@@ -91,6 +95,19 @@
       		});		      
       	});
       })
+      $(function (){
+      	$('input[name=direction]').change(function(){
+      		// reverse order of source and destination but keep the end points
+      		var src = $('#source');
+      		var dst = $('#destination')
+      		var src_selected = src.val();
+      		var dst_selected = dst.val();
+      		reverse_children_not_last(src);
+      		reverse_children_not_last(dst);
+      		src.val(dst_selected);
+      		dst.val(src_selected);
+		})
+      })
       </script>
       {% block head %}
       {% endblock head %}
@@ -102,16 +119,16 @@
   		<div class="navbar-inner">
   			<div class="container">
   				<!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-		      	<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-			        <span class="icon-bar"></span>
-			        <span class="icon-bar"></span>
-			        <span class="icon-bar"></span>
-		      	</a>
+  				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+  					<span class="icon-bar"></span>
+  					<span class="icon-bar"></span>
+  					<span class="icon-bar"></span>
+  				</a>
   				<a class="brand" href="#">לחזור 
   					<img src='/static/Volver_99x40.png' class="img-rounded">
   					Volver
   				</a>
-		        <div class="nav-collapse">
+  				<div class="nav-collapse">
   					<ul class="nav">
   						<li><a href="#" title="מה זה?"><i class="icon-question-sign"></i></a></li>
   						<li><a href="mailto:{{ config.EMAIL }}" title="צור קשר"><i class="icon-envelope"></i></a></li>
@@ -140,12 +157,12 @@
   							<div id="error" style='width: 80%;'>						
   							</div>
   							<label class="radio">
-  								<input type="radio" name="direction" id="direction1" value="north" checked>
-  								צפונה
+  								<input type="radio" name="direction" id="direction_south" value="south" checked>
+  								דרומה
   							</label>
   							<label class="radio">
-  								<input type="radio" name="direction" id="direction2" value="south">
-  								דרומה
+  								<input type="radio" name="direction" id="direction_north" value="north">
+  								צפונה
   							</label>
   						</div>
   					</div>
@@ -155,7 +172,7 @@
   						</label>
   						<div class="controls">
   							<select name="source" id="source" required>
-  								{% for k,v in sort_atlas_by_field(atlas,reverse=False) %}
+  								{% for k,v in sort_atlas_by_field(atlas,field='lat',reverse=True) %}
   								<option value="{{ v.he }}" lat="{{ v.lat }}" lng="{{ v.lng }}">{{ v.he }}</option>
   								{% endfor %}
   								<option value='אחר...'>אחר...</option>
@@ -172,7 +189,7 @@
   						</label>
   						<div class="controls">
   							<select name="destination" id="destination" required>
-  								{% for k,v in sort_atlas_by_field(atlas,reverse=True) %}
+  								{% for k,v in sort_atlas_by_field(atlas,field='lat',reverse=False) %}
   								<option value="{{ v.he }}" lat="{{ v.lat }}" lng="{{ v.lng }}">{{ v.he }}</option>
   								{% endfor %}
   								<option value='אחר...'>אחר...</option>
@@ -186,10 +203,10 @@
   					<div class="control-group">
   						<label class="control-label" for="datepicker_leaving">יוצאים</label>
   						<div class="controls">  						
-						    <input class="input-medium" type="text" id="datepicker_leaving" name="leaving" required/>&nbsp;
+  							<input class="input-medium" type="text" id="datepicker_leaving" name="leaving" required/>&nbsp;
   							<label class="checkbox inline">
-						    	<input type="checkbox" name="flex_leaving">&nbsp;גמיש
-						    </label>
+  								<input type="checkbox" name="flex_leaving">&nbsp;גמיש
+  							</label>
   						</div>
   					</div>  
   					<div class="control-group">
@@ -197,8 +214,8 @@
   						<div class="controls">
   							<input class="input-medium" type="text" id="datepicker_arriving" name="arriving" required/>&nbsp;
   							<label class="checkbox inline">
-						    	<input type="checkbox" name="flex_arriving">&nbsp;גמיש
-						    </label>
+  								<input type="checkbox" name="flex_arriving">&nbsp;גמיש
+  							</label>
   						</div>
   					</div> 
   					<div class="control-group">
