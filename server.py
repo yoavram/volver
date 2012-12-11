@@ -63,8 +63,9 @@ app.config.from_pyfile('config.py', True)
 if app.debug:
 	print " * Running in debug mode"
 	import mockdb
+	col = mockdb.MockDb()
 	def get_collection():
-		return mockdb.MockDb()
+		return col
 else:
 	app.config['MONGO_DBNAME'] = db_name_from_uri(app.config['MONGO_URI'])
 	mongo = PyMongo(app)
