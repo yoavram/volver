@@ -6,8 +6,11 @@ from datetime import datetime
 from bson import ObjectId
 import simplejson
 from atlas import atlas
+from apscheduler.scheduler import Scheduler
 
 DATE_FORMAT = "%d/%m/%Y"
+DAYS_TO_EXPIRE = 7
+
 
 class MongoDocumentEncoder(simplejson.JSONEncoder):
     def default(self, o):
@@ -72,7 +75,7 @@ else:
 	if mongo:
 		print " * Connection to database established"
 		def get_collection():
-			return  mongo.db.CarreteraAustralDev
+			return mongo.db.CarreteraAustralDev
 
 app.jinja_env.filters['format_date'] = string_from_datetime
 app.jinja_env.globals['atlas'] = atlas
@@ -86,6 +89,17 @@ def get_posts():
 
 def add_post(post):
 	return get_collection().insert(post)
+
+
+def remove_old_posts():
+	now = datetime.now()
+	cursor = get_collection().find()
+	for p in cursor:
+		delta = now - p['arriving']
+		if delta.days > DAYS_TO_EXPIRE:
+			print "Removing old post: "
+			print p
+			get_collection().remove(p['_id'])
 	
 
 @app.route("/",  methods=['GET', 'POST'])
@@ -110,7 +124,15 @@ def make_matches():
 
 
 if __name__ == '__main__':
-	# Bind to PORT if defined, otherwise default to 5000.
+	sched = Scheduler()
+	### used to test the scheduler
+	#from datetime import timedelta
+	#sched.add_date_job(remove_old_posts, datetime.now() + timedelta(0.0001)) 
+	sched.add_cron_job(remove_old_posts, day_of_week='*', hour=12)
+	sched.start()
+	print " * Started scheduler"
+
 	port = int(os.environ.get('PORT', 5001))
 	app.run(host='0.0.0.0', port=port, debug=app.debug)
+	sched.shutdown()
 	print "Finished"
