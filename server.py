@@ -63,13 +63,15 @@ app.config.from_pyfile('config.py', True)
 if app.debug:
 	print " * Running in debug mode"
 	import mockdb
-	collection = mockdb.MockDb()
+	def get_collection():
+		return mockdb.MockDb()
 else:
 	app.config['MONGO_DBNAME'] = db_name_from_uri(app.config['MONGO_URI'])
 	mongo = PyMongo(app)
 	if mongo:
 		print " * Connection to database established"
-		#collection = mongo.db.CarreteraAustralDev
+		def get_collection():
+			return  mongo.db.CarreteraAustralDev
 
 app.jinja_env.filters['format_date'] = string_from_datetime
 app.jinja_env.globals['atlas'] = atlas
@@ -77,12 +79,12 @@ app.jinja_env.globals['sort_atlas_by_field'] = sort_atlas_by_field
 
 
 def get_posts():
-	cursor = mongo.db.CarreteraAustralDev.find(sort=[('leaving', ASCENDING)])
+	cursor = get_collection().find(sort=[('leaving', ASCENDING)])
 	return cursor, cursor.count()
 	
 
 def add_post(post):
-	return mongo.db.CarreteraAustralDev.insert(post)
+	return get_collection().insert(post)
 	
 
 @app.route("/",  methods=['GET', 'POST'])
@@ -101,7 +103,7 @@ def index():
 def make_matches():
 	arriving = datetime_from_string(request.args.get('arriving', type=str))
 	destination = request.args.get('destination', type=unicode)
-	matches = mongo.db.CarreteraAustralDev.find({'leaving':arriving, 'source':destination})
+	matches = get_collection().find({'leaving':arriving, 'source':destination})
 	oid = [str(p['_id']) for p in matches]
 	return jsonify(result=oid)
 
