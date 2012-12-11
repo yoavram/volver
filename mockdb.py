@@ -8,14 +8,16 @@ def datetime_from_string(string):
 class MockDb:
 	def __init__(self):
 		self.data = [
-			{'name':u'uri', 'direction':'north', 'leaving':datetime_from_string('22/12/2012'), 'arriving':datetime_from_string('23/12/2012'), 'email':'uri@gmail.com', 'source':'bariloche', 'destination':'al poson'},
-			{'name':u'מיכל', 'direction':'south', 'leaving':datetime_from_string('24/12/2012'), 'arriving':datetime_from_string('26/12/2012'), 'email':'uri@gmail.com', 'source':'al poson', 'destination':'bariloche'}
+			{'_id':1,'name':u'uri', 'direction':'north', 'leaving':datetime_from_string('2/12/2012'), 'arriving':datetime_from_string('3/12/2012'), 'email':'uri@gmail.com', 'source':'bariloche', 'destination':'al poson'},
+			{'_id':2,'name':u'מיכל', 'direction':'south', 'leaving':datetime_from_string('12/12/2012'), 'arriving':datetime_from_string('17/12/2012'), 'email':'uri@gmail.com', 'source':'al poson', 'destination':'bariloche'}
 		]
 
 
 	def insert(self, post):
+		_id = max([ x['_id'] for x in self.data ]) + 1
+		post['_id'] = _id
 		self.data.append(post)
-		return 1
+		return _id
 
 
 	def find(self, spec=None, sort=None):
@@ -29,5 +31,12 @@ class MockDb:
 	def __iter__(self):
 		return self.data.__iter__()
 
+
 	def count(self):
 		return len(self.data)
+
+
+	def remove(self, _id):
+		for x in self.data:
+			if x['_id'] == _id:
+				return self.data.remove(x)
