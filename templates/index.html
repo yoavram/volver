@@ -14,13 +14,18 @@
 	<link href="/static/style.css" rel="stylesheet">
 	<link href="/static/jquery-ui.css" rel="stylesheet">
 	<link href="/static/bootstrap.rtl.css" rel="stylesheet">
+	<link href="/static/bootstrap-responsive.rtl.css" rel="stylesheet">
 	<link href="/static/font-awesome.css" rel="stylesheet">
 	
 	<!-- Le JS -->
 	<script src="/static/jquery-1.8.3.js"></script>
 	<script src="/static/jquery-ui.js"></script>
 	<script type="text/javascript" src="/static/bootstrap.rtl.js"></script>	
-	
+	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
 	<script>
 	$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 	function error_div(msg) {
