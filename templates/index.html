@@ -56,8 +56,7 @@
       $(function() {
       	$("[id^=datepicker]").datepicker({ 
       		dateFormat: "dd/mm/yy", 
-      		defaultDate: "+0", 
-      		minDate: "+0"
+      		defaultDate: "+0"
       	});
       });
       $(function() { 
@@ -106,7 +105,7 @@
       		reverse_children_not_last(dst);
       		src.val(dst_selected);
       		dst.val(src_selected);
-		});
+      	});
       })
       </script>
       {% block head %}
@@ -147,7 +146,7 @@
   	</div><!--/.navbar -->
 
   	<!-- BODY -->	
-	{% include "about.html" %}
+  	{% include "about.html" %}
 
   	<div class="row-fluid">
   		<div class="span4">
