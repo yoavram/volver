@@ -52,13 +52,14 @@ def process_form(form):
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 #GOOGLE_ANALYTICS = os.environ.get('GOOGLE_ANALYTICS', '')
 MONGO_URI = os.environ.get('MONGOLAB_URI')
-EMAIL = os.environ.get('EMAIL')
-WEBSITE_URL = os.environ.get('WEBSITE_URL')
+EMAIL = 'volver.info.il@gmail.com'
+WEBSITE_URL = 'http://www.volver.com/'
 
 # configure app
 app = Flask(__name__)
 app.config.from_object(__name__)  
 app.config.from_pyfile('config.py', True)
+
 if app.debug:
 	print " * Running in debug mode"
 	import mockdb
@@ -68,7 +69,7 @@ else:
 	mongo = PyMongo(app)
 	if mongo:
 		print " * Connection to database established"
-		collection = mongo.db.CarreteraAustralDev
+		#collection = mongo.db.CarreteraAustralDev
 
 app.jinja_env.filters['format_date'] = string_from_datetime
 app.jinja_env.globals['atlas'] = atlas
@@ -76,12 +77,12 @@ app.jinja_env.globals['sort_atlas_by_field'] = sort_atlas_by_field
 
 
 def get_posts():
-	cursor = collection.find(sort=[('leaving', ASCENDING)])
+	cursor = mongo.db.CarreteraAustralDev.find(sort=[('leaving', ASCENDING)])
 	return cursor, cursor.count()
 	
 
 def add_post(post):
-	return collection.insert(post)
+	return mongo.db.CarreteraAustralDev.insert(post)
 	
 
 @app.route("/",  methods=['GET', 'POST'])
@@ -100,7 +101,7 @@ def index():
 def make_matches():
 	arriving = datetime_from_string(request.args.get('arriving', type=str))
 	destination = request.args.get('destination', type=unicode)
-	matches = collection.find({'leaving':arriving, 'source':destination})
+	matches = mongo.db.CarreteraAustralDev.find({'leaving':arriving, 'source':destination})
 	oid = [str(p['_id']) for p in matches]
 	return jsonify(result=oid)
 
