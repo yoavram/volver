@@ -52,6 +52,8 @@ def process_form(form):
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 #GOOGLE_ANALYTICS = os.environ.get('GOOGLE_ANALYTICS', '')
 MONGO_URI = os.environ.get('MONGOLAB_URI')
+EMAIL = os.environ.get('EMAIL')
+WEBSITE_URL = os.environ.get('WEBSITE_URL')
 
 # configure app
 app = Flask(__name__)
@@ -67,7 +69,6 @@ else:
 	if mongo:
 		print " * Connection to database established"
 		collection = mongo.db.CarreteraAustralDev
-
 
 app.jinja_env.filters['format_date'] = string_from_datetime
 app.jinja_env.globals['atlas'] = atlas
