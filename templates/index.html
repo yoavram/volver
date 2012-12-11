@@ -106,7 +106,7 @@
       		reverse_children_not_last(dst);
       		src.val(dst_selected);
       		dst.val(src_selected);
-		})
+		});
       })
       </script>
       {% block head %}
@@ -130,7 +130,7 @@
   				</a>
   				<div class="nav-collapse">
   					<ul class="nav">
-  						<li><a href="#" title="מה זה?"><i class="icon-question-sign"></i></a></li>
+  						<li><a href="#" id="about-btn" title="מה זה?"><i class="icon-question-sign"></i></a></li>
   						<li><a href="mailto:{{ config.EMAIL }}" title="צור קשר"><i class="icon-envelope"></i></a></li>
   						<li><a href="mailto:?subject=Volver+-+לחזור&body=שמעת+על+לחזור?+{{ config.WEBSITE_URL }}" title="שתף במייל"><i class="icon-envelope-alt"></i></a></li>
   						<!-- http://stackoverflow.com/questions/9320517/whats-the-most-efficient-way-to-add-social-media-like-and-1-buttons-to-you/9321347#9321347 -->
@@ -147,6 +147,8 @@
   	</div><!--/.navbar -->
 
   	<!-- BODY -->	
+	{% include "about.html" %}
+
   	<div class="row-fluid">
   		<div class="span4">
   			<form class="form-horizontal" action="/" method="post">
@@ -232,7 +234,7 @@
   					</div>  
   					<div class="control-group">
   						<div class="controls">
-  							<button class="btn btn-inverse" type="submit">הרשמה</button>
+  							<button class="btn btn-inverse" type="submit" title="מלא את כל השדות">הרשמה</button>
   							<a class="btn" id="make_match" style="margin-right: 10px" title="מלא את 'יעד' ואת מגיעים'">חיפוש</a>
   						</div>   
   					</div>  				

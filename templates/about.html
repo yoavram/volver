@@ -1,0 +1,32 @@
+<div id="about" class="alert alert-block span6 offset3" style="display: none">
+<button type="button" class="close" id="close-about-btn">&times;</button>
+<h4>מה זה <em>לחזור</em>?</h4>
+רגע לפני שאתם משכירים רכב לעשות את <em>הקרטרה אוסטרל</em>, יש לכם אפשרות <em>לחסוך הרבה כסף</em>.
+<br>
+איך? תיאום עם חבר'ה שמתכוונים לעשות את <em>הכיוון ההפוך</em>.
+<br>
+חברות השכרת הרכב נותנות <em>הנחה משמעותית</em> למי שמחזיר את הרכב <em>לתחנת היציאה</em>.
+לא מאמינים? תשאלו.
+<br>
+אז זה בדיוק מה שהאתר הזה יעזור לכם לעשות.
+<br>
+<br>
+<span class="muted"><small>
+	השימוש באתר על אחריות המשתמש. מפעילי האתר מתחייבים לא להשתמש בפרטי המשתמשים אלא למטרת הצגתם באתר ולמחוק את הפרטים מהאתר בתוך 30 ימים ממועד ההגעה. טל"ח.
+</small></span>
+<br>
+<a href="#" class="close" id='close-about-text' style="font-size: small;">
+לחץ כאן כדי לסגור את ההודעה.
+</a>
+</div>
+
+<script type="text/javascript">
+$(function() {
+	$("[id^=close-about-]").click(function() {
+		$('#about').hide();
+	});
+	$("#about-btn").click(function (){
+		$('#about').show();
+	});
+})
+</script>
