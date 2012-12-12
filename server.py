@@ -15,6 +15,7 @@ import uuid
 from sendgrid import Sendgrid, Message
 
 DATE_FORMAT = "%d/%m/%Y"
+SHORT_DATE_FORMAT = "%d/%m/%y"
 DAYS_TO_EXPIRE = 7
 
 
@@ -43,6 +44,9 @@ def datetime_from_string(string):
 def string_from_datetime(datetime_obj):
 	return datetime_obj.strftime(DATE_FORMAT)
 
+
+def short_string_from_datetime(datetime_obj):
+	return datetime_obj.strftime(SHORT_DATE_FORMAT)
 
 def sort_atlas_by_field(atlas, field='lat', reverse=False):
 	return sorted(atlas.items(), key=lambda x: x[1][field], reverse=reverse)
@@ -97,6 +101,7 @@ else:
 			return mongo.db.CarreteraAustralDev
 
 app.jinja_env.filters['format_date'] = string_from_datetime
+app.jinja_env.filters['format_date_short'] = short_string_from_datetime
 app.jinja_env.globals['atlas'] = atlas
 app.jinja_env.globals['sort_atlas_by_field'] = sort_atlas_by_field
 
