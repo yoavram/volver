@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div class="row-fluid">
+	<div class="span6 offset2">
+		<p>
+			{% if post %}
+		
+		שלום, {{ post.name }}!
+		<br>
+		נסיעתך מ{{ post.source }} ל{{ post.destination }} נמחקה מהמערכת בעקבות בקשתך.
+		
+		{% else %}
+		שלום,
+		<br>
+		לצערנו נסיעתך לא נמצאה במערכת.
+		<br>
+		כדאי לבדוק <a href="/">בעמוד הראשי</a> אם הנסיעה עדיין נמצאת ברשימה.
+		<br>
+		אם קרתה תקלה כלשהי, אפשר <a href="mailto:{{ config.EMAIL }}" title="צרו קשר">ליצור איתנו קשר</a> וננסה לטפל בבעיה.
+		{% endif %}
+		<br>
+		אנו מודים לך על השימוש באתר ומאחלים לך טיול נעים ובטוח,
+		<br>
+		צוות <em>{{ config.WEBSITE_NAME }}</em>
+	</p>
+	<p>
+		<a href="/"><i class="icon-home"></i> לחזרה לעמוד הראשי </a>
+	</div>
+</div>
+{% endblock main %}

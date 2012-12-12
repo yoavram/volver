@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, request, render_template, redirect, Response
+from flask import Flask, request, render_template, redirect, Response, url_for
 import os
 from flask.ext.pymongo import PyMongo, ASCENDING 
 from flask.ext.mail import Mail, Message
@@ -8,6 +8,7 @@ from bson import ObjectId
 import simplejson
 from atlas import atlas
 from apscheduler.scheduler import Scheduler
+import uuid
 
 DATE_FORMAT = "%d/%m/%Y"
 DAYS_TO_EXPIRE = 7
@@ -48,7 +49,8 @@ def process_form(form):
 	if form['source'].endswith('...'):
 		form['source'] = form['custom_source']
 	if form['destination'].endswith('...'):
-		form['destination'] = form['custom_destination']		
+		form['destination'] = form['custom_destination']
+	form['secret'] = str(uuid.uuid1())
 	return form
 
 
@@ -101,10 +103,11 @@ app.jinja_env.globals['atlas'] = atlas
 app.jinja_env.globals['sort_atlas_by_field'] = sort_atlas_by_field
 
 
-def send_welcome_mail(recipient_name, recipient_email):
+def send_welcome_mail(post):
 	msg = Message(u"ברוך הבא ללחזור!")
-	msg.add_recipient(recipient_email)
-	msg.html = render_template("welcome_mail.html", name=recipient_name, delete_link=app.config['WEBSITE_URL'])
+	msg.add_recipient(post['email'])
+	delete_link = request.url_root[:-1] + url_for('delete', secret=post['secret'])
+	msg.html = render_template("welcome_mail.html", post=post, delete_link=delete_link)
 	print "Sending mail to", recipient_email
 	mail.send(msg)
 
@@ -136,9 +139,10 @@ def index():
 		print "# Posts:", num
 		return render_template("index.html", posts=posts)
 	else:
-		oid = add_post(process_form(request.form.to_dict()))
-		print "Added object to database:", oid
-		send_welcome_mail(request.form['name'], request.form['email'])
+		post = process_form(request.form.to_dict())
+		oid = add_post(post)
+		print "Added post to database:", oid
+		send_welcome_mail(post)
 		return redirect('/')
 
 
@@ -149,6 +153,14 @@ def make_matches():
 	matches = get_collection().find({'leaving':arriving, 'source':destination})
 	oid = [str(p['_id']) for p in matches]
 	return jsonify(result=oid)
+
+
+@app.route('/delete/<string:secret>')
+def delete(secret):
+	post = get_collection().find_one({'secret':secret})
+	if post:
+		get_collection().remove(post['_id'])
+	return render_template("delete.html", post=post)
 
 
 if __name__ == '__main__':

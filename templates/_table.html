@@ -22,7 +22,9 @@
 		{% for p in posts if (p.direction == direction) or (direction == 'all') %}
 		<tr id="post_{{ p._id }}">
 			<td>
-				<a href="mailto:{{ p.email }}">{{ p.name }}</a>
+				<a href="mailto:{{ p.email }}"
+				{% if config.DEBUG %} title={{ p.secret }}{% endif %}
+				>{{ p.name }}</a>
 			</td>
 			<td>
 				{{ p.source }}
