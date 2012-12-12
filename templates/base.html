@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+	<title>{% block title %} Volver {% endblock title %}</title>
+	<meta name="description" content="" />
+	<meta name="author" content="Yoav Ram">
+	<meta name="keywords" content="">
+	<meta charset="UTF-8">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<link rel="icon" type="image/ico" href="/static/favicon.ico">
+
+	<!-- Le style -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="/static/style.css" rel="stylesheet">
+	<link href="/static/jquery-ui.css" rel="stylesheet">
+	<link href="/static/bootstrap.rtl.css" rel="stylesheet">
+	<link href="/static/bootstrap-responsive.rtl.css" rel="stylesheet">
+	<link href="/static/font-awesome.css" rel="stylesheet">
+	
+	<!-- Le JS -->
+	<script type="text/javascript" src="/static/jquery-1.8.3.js"></script>
+	<script type="text/javascript" src="/static/jquery-ui.js"></script>
+	<script type="text/javascript" src="/static/bootstrap.rtl.js"></script>
+	<script type="text/javascript" src="/static/bootstrap-transition.js"></script>
+	<script type="text/javascript" src="/static/bootstrap-collapse.js"></script>
+	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+      {% block head %}
+      {% endblock head %}
+
+  </head>
+
+  <body>
+  	<div class="navbar navbar-fixed-top">
+  		<div class="navbar-inner">
+  			<div class="container">
+  				<!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+  				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+  					<span class="icon-bar"></span>
+  					<span class="icon-bar"></span>
+  					<span class="icon-bar"></span>
+  				</a>
+  				<a class="brand" href="http://en.wikipedia.org/wiki/Volver" target="_blank">לחזור 
+  					<img src='/static/Volver_99x40.png' class="img-rounded">
+  					Volver
+  				</a>
+  				<div class="nav-collapse">
+  					<ul class="nav">
+  						<li><a href="#" id="about-btn" title="מה זה?"><i class="icon-question-sign"></i></a></li>
+  						<li><a href="mailto:{{ config.EMAIL }}" title="צור קשר"><i class="icon-envelope"></i></a></li>
+  						<li><a href="mailto:?subject=Volver+-+לחזור&body=שמעת+על+לחזור?+{{ config.WEBSITE_URL }}" title="שתף במייל"><i class="icon-envelope-alt"></i></a></li>
+  						<!-- http://stackoverflow.com/questions/9320517/whats-the-most-efficient-way-to-add-social-media-like-and-1-buttons-to-you/9321347#9321347 -->
+  						<li><a href="http://www.facebook.com/share.php?u={{ config.WEBSITE_URL }}" title="שתף בפייסבוק"><i class="icon-facebook"></i></a></li>
+  						<!-- https://dev.twitter.com/docs/tweet-button -->
+  						<li><a href="https://twitter.com/share?url={{ config.WEBSITE_URL }}&text=לחזור+-+מתאמים+כיוונים+בקרטרה+אוסטרל&lang=he&counturl={{ config.WEBSITE_URL }}" class="twitter-share-button" data-lang="he" title="שתף בטוויטר">
+  							<i class="icon-twitter"></i></a>
+  						</li>
+  						<li><a href="https://plusone.google.com/_/+1/confirm?hl=he&url={{ config.WEBSITE_URL }}" title="שתף בגוגל+"><i class="icon-google-plus"></i></a></li>
+  					</ul>
+  				</div><!--/.nav-collapse -->  				
+  			</div><!--/.container -->
+  		</div><!--/.navbar-inner -->
+  	</div><!--/.navbar -->
+
+  	<!-- BODY -->	
+  	{% include "about.html" %}
+
+    {% block main %}
+  	
+    {% endblock %}
+  	
+  	<!-- FOOTER -->
+  	<div class="row-fluid">
+  		<div class="span10 offset1">
+  			<footer class="colophon"> 
+  				{% block footer %}
+  				{% endblock footer %}
+
+  				<ul class="quick-links">					
+  					<li><a href="http://blog.getbootstrap.com/">Twitter Bootstrap</a></li>
+  					<li><a href="https://github.com/AbdullahDiaa/Bootstrap-RTL">Bootstrap-RTL</a></li>
+  					<li><a href="http://fortawesome.github.com/Font-Awesome/">Font Awesome</a></li>	
+  					<li><a href="http://jquery.com/">jQuery</a></li>
+  					<li><a href="http://jqueryui.com/">jQuery UI</a></li>
+  					<li><a href="https://developers.google.com/maps/">Google Maps API</a></li>
+  					<br>
+  					<li><a href="http://python.org/">Python</a></li>
+  					<li><a href="http://flask.pocoo.org/">Flask</a></li>
+  					<li><a href="http://flask-pymongo.readthedocs.org/">Flask-PyMongo</a></li>
+  					<li><a href="http://packages.python.org/flask-mail/Flask-Mail/">Flask-Mail</a></li>
+  					<li><a href="http://www.mongodb.org/">MongoDB</a></li>
+  					<li>|</li>
+  					<li><a href="http://www.heroku.com/">Heroku</a></li>
+  					<li><a href="http://www.mongolab.com/">MongoLab</a></li>
+  					<li><a href="http://sendgrid.com/">SendGrid</a></li>
+  				</ul>
+  				<ul class="quick-links">					
+  					<li>© כל הזכויות שמורות ליואב רם ודן ליבשוץ | Copyright © 2012 Yoav Ram and Dan Liebeschutz</li>
+  				</ul>
+
+  			</footer>
+  		</div>
+  	</div>
+  </body>
+  </html>
