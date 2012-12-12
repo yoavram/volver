@@ -1,53 +1,67 @@
-<div id="contact" class="row-fluid" style="display: none">
-<div class="span6 offset3" >
-	<div class="alert alert-info">
-	<button type="button" class="close" id="close-contact-btn">&times;</button>
-	<form class="form-inline" >
-		<fieldset>
-			<div class="control-group">
-				<div class="controls">
-				<h4>צרו קשר עם צוות <em>לחזור</em></h4>
-				</div> </div> 
-			<div class="control-group">
+<div id="popout-contact" class="row well" style="margin-right: 60px; margin-left: 50px; display: none;">
+	<div class="row-fluid span6 offset3" id="contact_form">
+		<form action="/contact">
+			<div class="span3">
 				<label class="control-label" for="name">שם</label>
-				<div class="controls">
-					<input type="text" placeholder="שמיל החתול" name="name" required>
-				</div> 
-			</div>  
-			<div class="control-group">
+				<input type="text" placeholder="החתול שמיל" name="name" required>
 				<label class="control-label" for="email">אימייל</label> 
-				<div class="controls">
-					<input type="text" placeholder="shmil@catmail.com" name="email" required>
-				</div>   
-			</div>  
-			<div class="control-group">
+				<input type="text" placeholder="shmil@catmail.com" name="email" required>
 				<label class="control-label" for="subject">נושא</label>
-				<div class="controls">
-					<input type="text" placeholder="קומו אסטס?" name="subject" required>
-				</div> 
-			</div> 				
-			<div class="control-group">
-				<div class="controls">
-					<textarea class="span12" cols="80" name="text" required>טודו ביין?</textarea>
-				</div>
+				<input type="text" placeholder="קומו אסטס?" name="subject" required>
 			</div>
-			<div class="control-group">
-				<div class="controls">
-					<button class="btn btn-inverse" type="submit" id="close-contact-submit">שלח</button>
-				</div>   
-			</div>							
-		</fieldset>
-	</form>
-</div></div>
+			<div class="span3">
+				<button type="button" class="close pull-left" id="close-contact-btn">&times;</button>
+				<label class="control-label" for="message">הודעה &nbsp; 
+					<span class="label label-success" id="message-sent">ההודעה נשלחה</span>
+					<span class="label label-warning" id="message-warning">ההודעה לא נשלחה</span>
+				</label> 
+				<textarea rows="6" name="message" placeholder="טודו ביין?" required></textarea>
+				<button class="btn btn-inverse pull-right" type="submit" id="submit">שלח</button>
+			</div>
+
+		</form>
+	</div>
+</div>
 <script type="text/javascript">
 $(function() {
 	$("[id^=close-contact-]").click(function() {
-		$('#contact').hide();
+		$('#popout-contact').hide();
 	});
 	$("#contact-btn").click(function (){
-		$('#contact').show();
+		$('#popout-').hide();
+		$('#popout-contact').show();
+	});
+	$('#message-sent').hide();
+	$('#message-warning').hide();
+	$('#submit').click(function() {
+		$('#message-sent').hide();
+		$('#message-warning').hide();
+	});
+})
+$(function() {
+	$("#contact_form").submit(function(event) {
+		/* get some values from elements on the page: */
+		var $form = $( this );
+		message = $form.find( 'textarea[name="message"]' ).val();
+		name = $form.find( 'input[name="name"]' ).val();
+		email = $form.find( 'input[name="email"]' ).val();
+		subject = $form.find( 'input[name="subject"]' ).val();
+		url = '/contact';
+		
+		/* Send the data using post and put the results in a div */
+		$.post( url, { name: name, email: email, subject: subject, message: message },
+			function( data ) {
+				success = data["result"];
+				if (success) {
+					$('#message-sent').show();
+				} else {
+					$('#message-warning').show();
+				}
+			}
+			);
+		/* stop form submitting normally */
+		return false;
 	});
 })
 </script>
-</div>
 

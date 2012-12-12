@@ -77,7 +77,7 @@ app = Flask(__name__)
 app.config.from_object(__name__)  
 app.config.from_pyfile('config.py', True)
 
-# init mail
+# init mail http://sendgrid.com/docs/Code_Examples/python.html
 mail = Sendgrid(app.config['MAIL_USERNAME'], app.config['MAIL_PASSWORD'], secure=True)
 
 
@@ -106,20 +106,27 @@ def send_welcome_mail(post):
 	html = render_template("welcome_mail.html", post=post, delete_link=delete_link)
 	msg = Message((app.config['EMAIL'], app.config['WEBSITE_NAME']), u"ברוך הבא ללחזור!", html=html)
 	msg.add_to(post['email'], post['name'])	
-	print "Sent mail to", post['email'], mail.smtp.send(msg)
+	if not app.debug:
+		print "Sent mail to", post['email'], mail.smtp.send(msg)
 
 
-def send_contact_mail(subject, body, name, email):
-	msg = Message((email, name), subject, html="<div dir='rtl'>"+text+"</div>")
+def send_contact_mail(subject, text, name, email):
+	msg = Message((email, name), subject, html="<div dir='rtl'>" + text + "</div>")
 	msg.add_to((app.config['EMAIL'], app.config['WEBSITE_NAME']))
-	success = mail.smtp.send(msg)
-	print "Sent contact mail", success
-
+	if app.debug:
+		success = True
+	else: 
+		success = mail.smtp.send(msg)
+		print "Sent contact mail", success
 	html = render_template("contact_confirmation.html", success=success, name=name, subject=subject, to=app.config['WEBSITE_NAME'])
 	msg = Message((app.config['EMAIL'], app.config['WEBSITE_NAME']), u'הודעתך נשלחה', html=html)
 	msg.add_to((email, name))
-	print "Sent confirmation mail", mail.smtp.send(msg)
-	return success
+	if app.debug:
+		return True
+	else:
+		print "Sent confirmation mail", mail.smtp.send(msg)
+		return success
+		
 
 def get_posts():
 	cursor = get_collection().find(sort=[('leaving', ASCENDING)])
@@ -172,13 +179,13 @@ def delete(secret):
 	return render_template("delete.html", post=post)
 
 
-@app.route('/contact')
+@app.route('/contact', methods=['POST'])
 def contact():
-	name = request.args.get('name', type=unicode)
-	email = request.args.get('email', type=unicode)
-	subject = request.args.get('subject', type=unicode)
-	body = request.args.get('body', type=unicode)
-	success = send_contact_mail(subject, body, name, email)
+	name = request.form.get('name', type=unicode)
+	email = request.form.get('email', type=unicode)
+	subject = request.form.get('subject', type=unicode)
+	message = request.form.get('message', type=unicode)
+	success = send_contact_mail(subject, message, name, email)
 	return jsonify(result=success)
 
 
