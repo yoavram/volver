@@ -1,14 +1,18 @@
 # -*- coding: utf-8 -*-
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
 from flask import Flask, request, render_template, redirect, Response, url_for
 import os
 from flask.ext.pymongo import PyMongo, ASCENDING 
-from flask.ext.mail import Mail, Message
 from datetime import datetime
 from bson import ObjectId
 import simplejson
 from atlas import atlas
 from apscheduler.scheduler import Scheduler
 import uuid
+from sendgrid import Sendgrid, Message
 
 DATE_FORMAT = "%d/%m/%Y"
 DAYS_TO_EXPIRE = 7
@@ -65,15 +69,8 @@ MONGO_URI = os.environ.get('MONGOLAB_URI')
 #GOOGLE_ANALYTICS = os.environ.get('GOOGLE_ANALYTICS', '')
 
 # SendGrid
-MAIL_SERVER = 'smtp.sendgrid.net'
-MAIL_PORT = 587  
-MAIL_USE_SSL = False
-MAIL_USE_TLS  = True
 MAIL_USERNAME = os.environ.get("SENDGRID_USERNAME")
 MAIL_PASSWORD = os.environ.get("SENDGRID_PASSWORD")
-DEFAULT_MAIL_SENDER = (WEBSITE_NAME, EMAIL)
-TESTING = DEBUG
-
 
 # init & configure app
 app = Flask(__name__)
@@ -81,7 +78,8 @@ app.config.from_object(__name__)
 app.config.from_pyfile('config.py', True)
 
 # init mail
-mail = Mail(app)
+mail = Sendgrid(app.config['MAIL_USERNAME'], app.config['MAIL_PASSWORD'], secure=True)
+
 
 # init database
 if app.debug:
@@ -104,12 +102,13 @@ app.jinja_env.globals['sort_atlas_by_field'] = sort_atlas_by_field
 
 
 def send_welcome_mail(post):
-	msg = Message(u"ברוך הבא ללחזור!")
-	msg.add_recipient(post['email'])
 	delete_link = request.url_root[:-1] + url_for('delete', secret=post['secret'])
-	msg.html = render_template("welcome_mail.html", post=post, delete_link=delete_link)
-	print "Sending mail to", recipient_email
-	mail.send(msg)
+	html = render_template("welcome_mail.html", post=post, delete_link=delete_link)
+	msg = Message((app.config['EMAIL'], app.config['WEBSITE_NAME']), u"ברוך הבא ללחזור!", html=html)
+	msg.add_to(post['email'], post['name'])
+	
+	print "Sending mail to", post['email']
+	mail.smtp.send(msg)
 
 
 def get_posts():
