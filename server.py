@@ -178,7 +178,7 @@ def contact():
 	email = request.args.get('email', type=unicode)
 	subject = request.args.get('subject', type=unicode)
 	body = request.args.get('body', type=unicode)
-	success = send_contact_mail(subject, body, name, email):
+	success = send_contact_mail(subject, body, name, email)
 	return jsonify(result=success)
 
 
