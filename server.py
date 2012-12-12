@@ -119,7 +119,7 @@ def send_contact_mail(subject, body, name, email):
 	msg = Message((app.config['EMAIL'], app.config['WEBSITE_NAME']), u'הודעתך נשלחה', html=html)
 	msg.add_to((email, name))
 	print "Sent confirmation mail", mail.smtp.send(msg)
-
+	return success
 
 def get_posts():
 	cursor = get_collection().find(sort=[('leaving', ASCENDING)])
@@ -170,6 +170,16 @@ def delete(secret):
 	if post:
 		get_collection().remove(post['_id'])
 	return render_template("delete.html", post=post)
+
+
+@app.route('/contact')
+def contact():
+	name = request.args.get('name', type=unicode)
+	email = request.args.get('email', type=unicode)
+	subject = request.args.get('subject', type=unicode)
+	body = request.args.get('body', type=unicode)
+	success = send_contact_mail(subject, body, name, email):
+	return jsonify(result=success)
 
 
 if __name__ == '__main__':
