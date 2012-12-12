@@ -8,8 +8,8 @@ def datetime_from_string(string):
 class MockDb:
 	def __init__(self):
 		self.data = [
-			{'_id':1,'name':u'uri', 'direction':'north', 'leaving':datetime_from_string('2/12/2012'), 'arriving':datetime_from_string('3/12/2012'), 'email':'uri@gmail.com', 'source':'bariloche', 'destination':'al poson'},
-			{'_id':2,'name':u'מיכל', 'direction':'south', 'leaving':datetime_from_string('12/12/2012'), 'arriving':datetime_from_string('17/12/2012'), 'email':'uri@gmail.com', 'source':'al poson', 'destination':'bariloche'}
+			{'_id':1,'name':u'uri', 'direction':'north', 'leaving':datetime_from_string('2/12/2012'), 'arriving':datetime_from_string('3/12/2012'), 'email':'uri@gmail.com', 'source':'bariloche', 'destination':'al poson', 'secret':'secret1'},
+			{'_id':2,'name':u'מיכל', 'direction':'south', 'leaving':datetime_from_string('12/12/2012'), 'arriving':datetime_from_string('17/12/2012'), 'email':'uri@gmail.com', 'source':'al poson', 'destination':'bariloche', 'secret':'secret2'}
 		]
 
 
@@ -21,7 +21,27 @@ class MockDb:
 
 
 	def find(self, spec=None, sort=None):
-		return self
+		if spec:
+			data = []
+			for d in self.data:
+				match = True
+				for k,v in spec.items():
+					if d[k] != v:
+						match = False
+						break
+				if match:
+					data.append(d)
+			return data
+		else:
+			return self
+
+
+	def find_one(self, spec=None, sort=None):
+		data = self.find(spec, sort)
+		if len(data)>0:
+			return data[0]
+		else:
+			return None
 
 
 	def rewind(self):
