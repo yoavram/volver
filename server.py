@@ -105,10 +105,20 @@ def send_welcome_mail(post):
 	delete_link = request.url_root[:-1] + url_for('delete', secret=post['secret'])
 	html = render_template("welcome_mail.html", post=post, delete_link=delete_link)
 	msg = Message((app.config['EMAIL'], app.config['WEBSITE_NAME']), u"ברוך הבא ללחזור!", html=html)
-	msg.add_to(post['email'], post['name'])
-	
-	print "Sending mail to", post['email']
-	mail.smtp.send(msg)
+	msg.add_to(post['email'], post['name'])	
+	print "Sent mail to", post['email'], mail.smtp.send(msg)
+
+
+def send_contact_mail(subject, body, name, email):
+	msg = Message((email, name), subject, html="<div dir='rtl'>"+text+"</div>")
+	msg.add_to((app.config['EMAIL'], app.config['WEBSITE_NAME']))
+	success = mail.smtp.send(msg)
+	print "Sent contact mail", success
+
+	html = render_template("contact_confirmation.html", success=success, name=name, subject=subject, to=app.config['WEBSITE_NAME'])
+	msg = Message((app.config['EMAIL'], app.config['WEBSITE_NAME']), u'הודעתך נשלחה', html=html)
+	msg.add_to((email, name))
+	print "Sent confirmation mail", mail.smtp.send(msg)
 
 
 def get_posts():

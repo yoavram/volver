@@ -1,0 +1,16 @@
+<div dir='rtl'>
+<h4>שלום {{ name }},</h4>
+הודעתך ל{{ to }} בנושא <em>'{{ subject }}'</em> 
+{% if success %}
+נשלחה בהצלחה.
+{% else %}
+לא נשלחה בשל תקלה טכנית.
+{% endif %}
+<br>
+תודה שהשתמשת בשירות שלנו,
+<br>
+אנו מאחלים לך נסיעה טובה ובטוחה,
+<br>
+מכל צוות <a href="{{ config.WEBSITE_URL }}" target="_blank">{{ config.WEBSITE_NAME }}</em>
+<br>
+</div>
