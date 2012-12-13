@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
+from flask.ext.pymongo import ObjectId
 DATE_FORMAT = "%d/%m/%Y"
 
 def datetime_from_string(string):
@@ -8,8 +9,8 @@ def datetime_from_string(string):
 class MockDb:
 	def __init__(self):
 		self.data = [
-			{'_id':1,'name':u'uri', 'direction':'north', 'leaving':datetime_from_string('2/12/2012'), 'arriving':datetime_from_string('3/12/2012'), 'email':'uri@gmail.com', 'source':'bariloche', 'destination':'al poson', 'secret':'secret1'},
-			{'_id':2,'name':u'מיכל', 'direction':'south', 'leaving':datetime_from_string('12/12/2012'), 'arriving':datetime_from_string('17/12/2012'), 'email':'uri@gmail.com', 'source':'al poson', 'destination':'bariloche', 'secret':'secret2'}
+			{'_id':ObjectId(),'name':u'uri', 'direction':'north', 'leaving':datetime_from_string('2/12/2012'), 'arriving':datetime_from_string('3/12/2012'), 'email':'uri@gmail.co', 'munged_email': 'uri [at] gmail [dot] co', 'source':'bariloche', 'destination':'al poson', 'secret':'secret1'},
+			{'_id':ObjectId(),'name':u'מיכל', 'direction':'south', 'leaving':datetime_from_string('12/12/2012'), 'arriving':datetime_from_string('17/12/2012'), 'email':'yoavram@gmail.com', 'munged_email': 'yoavram [at] gmail [dot] com', 'source':'al poson', 'destination':'bariloche', 'secret':'secret2'}
 		]
 
 
