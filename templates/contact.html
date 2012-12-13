@@ -15,7 +15,10 @@
 					<span class="label label-warning" id="message-warning">ההודעה לא נשלחה</span>
 				</label> 
 				<textarea rows="6" name="message" placeholder="טודו ביין?" required></textarea>
-				<button class="btn btn-inverse pull-right" type="submit" id="submit">שלח <i class="icon-ok"></i></button>
+				<div class="btn-group">
+				<button class="btn btn-inverse pull-right" type="submit" id="contact-submit"><i class="icon-ok"></i> שליחה</button>
+				<button class="btn btn pull-right" id="contact-clear"><i class="icon-remove"></i> מחיקה</button>
+			</div>
 			</div>
 
 		</form>
@@ -31,9 +34,12 @@ $(function() {
 	});
 	$('#message-sent').hide();
 	$('#message-warning').hide();
-	$('#submit').click(function() {
+	$('#contact-submit').click(function() {
 		$('#message-sent').hide();
 		$('#message-warning').hide();
+	});
+	$("#contact-clear").click(function() {
+    	$(this).closest('form').find("input[type=text], textarea").val("");
 	});
 })
 $(function() {
