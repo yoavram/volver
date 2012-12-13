@@ -107,25 +107,24 @@ $(document).ready(function(){
 			<fieldset>
 				<div class="control-group">
 					<div class="controls">
-						<h4>הרשמה</h4>
+						<h4><i class="icon-signin"></i> הרשמה</h4>
 						<div id="error" style='width: 80%;'>						
 						</div>
 						<label class="radio">
 							<input type="radio" name="direction" id="direction_south" value="south" checked>
-							דרומה
+							<i class="icon-arrow-down"></i> דרומה
 						</label>
 						<label class="radio">
 							<input type="radio" name="direction" id="direction_north" value="north">
-							צפונה
+							<i class="icon-arrow-up"></i> צפונה 
 						</label>
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="source">
-						מוצא
+					<label class="control-label" for="source">מוצא 
 					</label>
-					<div class="controls">
-						<select name="source" id="source" required>
+					<div class="controls"><i class="icon-map-marker"></i> 
+						<select class="input-medium" name="source" id="source" required>
 							{% for k,v in sort_atlas_by_field(atlas,field='lat',reverse=True) %}
 							<option value="{{ v.he }}" lat="{{ v.lat }}" lng="{{ v.lng }}">{{ v.he }}</option>
 							{% endfor %}
@@ -133,16 +132,15 @@ $(document).ready(function(){
 						</select>
 						<div id="custom_source" style="display: none;">
 							<p></p>
-							<input type="text" name="custom_source" placeholder="מאיפה?" />
+							<input class="input-medium" type="text" name="custom_source" placeholder="מאיפה?" />
 						</div>
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="destination">
-						יעד
+					<label class="control-label" for="destination">יעד 
 					</label>
-					<div class="controls">
-						<select name="destination" id="destination" required>
+					<div class="controls"><i class="icon-map-marker"></i> 
+						<select class="input-medium" name="destination" id="destination" required>
 							{% for k,v in sort_atlas_by_field(atlas,field='lat',reverse=False) %}
 							<option value="{{ v.he }}" lat="{{ v.lat }}" lng="{{ v.lng }}">{{ v.he }}</option>
 							{% endfor %}
@@ -150,14 +148,14 @@ $(document).ready(function(){
 						</select>
 						<div id="custom_destination" style="display: none;">
 							<p></p>
-							<input type="text" name="custom_destination" placeholder="לאן?" />
+							<input class="input-medium" type="text" name="custom_destination" placeholder="לאן?" />
 						</div>
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="datepicker_leaving">יוצאים</label>
-					<div class="controls">  						
-						<input class="input-medium" type="text" id="datepicker_leaving" name="leaving" required/>&nbsp;
+					<label class="control-label" for="datepicker_leaving">יוצאים </label>
+					<div class="controls"><i class="icon-calendar"></i>  						
+						<input class="input-small" type="text" id="datepicker_leaving" name="leaving" required/>&nbsp;
 						<label class="checkbox inline">
 							<input type="checkbox" name="flex_leaving">&nbsp;גמיש
 						</label>
@@ -165,8 +163,8 @@ $(document).ready(function(){
 				</div>  
 				<div class="control-group">
 					<label class="control-label" for="datepicker_arriving">מגיעים</label>
-					<div class="controls">
-						<input class="input-medium" type="text" id="datepicker_arriving" name="arriving" required/>&nbsp;
+					<div class="controls"><i class=" icon-calendar"></i>
+						<input class="input-small" type="text" id="datepicker_arriving" name="arriving" required/>&nbsp;
 						<label class="checkbox inline">
 							<input type="checkbox" name="flex_arriving">&nbsp;גמיש
 						</label>
@@ -174,20 +172,24 @@ $(document).ready(function(){
 				</div> 
 				<div class="control-group">
 					<label class="control-label" for="name">שם</label>
-					<div class="controls">
-						<input id="cname" type="text" placeholder="החתול שמיל" name="name" required>
+					<div class="controls"><i class="icon-user"></i>
+						<input id="cname" class="input-medium" type="text" placeholder="החתול שמיל" name="name" required>
 					</div> 
 				</div>  
 				<div class="control-group">
-					<label class="control-label" for="email">אימייל</label> 
-					<div class="controls">
-						<input id="cemail" type="email" placeholder="shmil@catmail.com" name="email" required>
+					<label class="control-label" for="email">דוא"ל</label> 
+					<div class="controls"><i class="icon-envelope-alt"></i>
+						<input id="cemail" class="input-medium" type="email" placeholder="shmil@catmail.com" name="email" required>
 					</div>   
 				</div>  
 				<div class="control-group">
-					<div class="controls">
-						<button class="btn btn-inverse" type="submit" title="מלא את כל השדות">הרשמה</button>
-						<a class="btn" id="make_match" style="margin-right: 10px" title="מלא את 'יעד' ואת מגיעים'">חיפוש</a>
+					<div class="controls" >
+						<button class="btn btn-inverse" type="submit" title="מלא את כל השדות">
+							<i class="icon-ok"></i> הרשמה
+						</button>
+						<a class="btn" id="make_match" style="margin-right: 10px" title="מלא את 'יעד' ואת מגיעים'">
+							<i class="icon-search"></i> חיפוש
+						</a>
 					</div>   
 				</div>  				
 			</fieldset>
@@ -197,9 +199,9 @@ $(document).ready(function(){
 	<div class="span4 offset1 new-row-tablet">
 		<div class="tabbable"> <!-- Only required for left/right tabs -->
 			<ul class="nav nav-tabs">
-				<li class="active"><a href="#all" data-toggle="tab"><h4>הכל</h4></a></li>
-				<li><a href="#north" data-toggle="tab"><h4>צפונה</h4></a></li>
-				<li><a href="#south" data-toggle="tab"><h4>דרומה</h4></a></li>
+				<li class="active"><a href="#all" data-toggle="tab"><h4><i class="icon-resize-vertical"></i> הכל</h4></a></li>
+				<li><a href="#north" data-toggle="tab"><h4><i class="icon-arrow-up"></i> צפונה</h4></a></li>
+				<li><a href="#south" data-toggle="tab"><h4><i class="icon-arrow-down"></i> דרומה</h4></a></li>
 			</ul>
 			<div class="tab-content">
 				<div class="tab-pane active" id="all">
@@ -222,7 +224,7 @@ $(document).ready(function(){
 		
 	</div>
 	<div class="span4 hidden-phone hidden-tablet">
-		<h4>מפת איזור קארטרה אוסטראל - Carretera Austral</h4>
+		<h4><i class="icon-globe"></i> מפת איזור קארטרה אוסטראל - Carretera Austral</h4>
 		{% include 'map.html' %}
 	</div>
 
