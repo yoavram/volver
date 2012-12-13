@@ -70,7 +70,7 @@ WEBSITE_NAME = u'לחזור - Volver'
 
 # Services
 MONGO_URI = os.environ.get('MONGOLAB_URI')
-#GOOGLE_ANALYTICS = os.environ.get('GOOGLE_ANALYTICS', '')
+GOOGLE_ANALYTICS = os.environ.get('GOOGLE_ANALYTICS', '')
 
 # SendGrid
 MAIL_USERNAME = os.environ.get("SENDGRID_USERNAME")
