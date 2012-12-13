@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block head %}
+
 <script>
 $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 function error_div(msg) {
@@ -59,7 +60,7 @@ $(function() {
 				var oid = data.result[i];
 				$('#post_' + oid).addClass('success');
 			}
-		});		      
+		});
 	});
 })
 $(function (){
@@ -81,7 +82,7 @@ $(function (){
 
 {% block main %}
 <div class="row-fluid">
-	<div class="span4">
+	<div class="span3">
 		<form class="form-horizontal" action="/" method="post">
 			<fieldset>
 				<div class="control-group">
@@ -154,7 +155,7 @@ $(function (){
 				<div class="control-group">
 					<label class="control-label" for="name">שם</label>
 					<div class="controls">
-						<input type="text" placeholder="שמיל החתול" name="name" required>
+						<input type="text" placeholder="החתול שמיל" name="name" required>
 					</div> 
 				</div>  
 				<div class="control-group">
@@ -173,7 +174,7 @@ $(function (){
 		</form>
 
 	</div>
-	<div class="span4">
+	<div class="span4 offset1 new-row-tablet">
 		<div class="tabbable"> <!-- Only required for left/right tabs -->
 			<ul class="nav nav-tabs">
 				<li class="active"><a href="#all" data-toggle="tab"><h4>הכל</h4></a></li>
@@ -200,7 +201,7 @@ $(function (){
 		</div>
 		
 	</div>
-	<div class="span4">
+	<div class="span4 hidden-phone hidden-tablet">
 		<h4>מפת איזור קארטרה אוסטראל - Carretera Austral</h4>
 		{% include 'map.html' %}
 	</div>

@@ -15,21 +15,32 @@
 	<link href="/static/jquery-ui.css" rel="stylesheet">
 	<link href="/static/bootstrap.rtl.css" rel="stylesheet">
 	<link href="/static/bootstrap-responsive.rtl.css" rel="stylesheet">
+  <link href="/static/bootstrap-override.css" rel="stylesheet">
 	<link href="/static/font-awesome.css" rel="stylesheet">
-	
+
 	<!-- Le JS -->
 	<script type="text/javascript" src="/static/jquery-1.8.3.js"></script>
 	<script type="text/javascript" src="/static/jquery-ui.js"></script>
 	<script type="text/javascript" src="/static/bootstrap.rtl.js"></script>
-	<script type="text/javascript" src="/static/bootstrap-transition.js"></script>
-	<script type="text/javascript" src="/static/bootstrap-collapse.js"></script>
+
+  <!--
+  <link href="/static/responsive-tables.css" rel="stylesheet">
+  <script type="text/javascript" src="/static/responsive-tables.js"></script>
+  <script type="text/javascript" src="/static/bootstrap-transition.js"></script>
+  <script type="text/javascript" src="/static/bootstrap-collapse.js"></script-->
 	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
   <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
       {% block head %}
       {% endblock head %}
-
+  <script type="text/javascript">
+  $(function() {
+    $('#refresh-btn').click(function(){
+      location.reload(true);
+    });
+  })
+  </script>
   </head>
 
   <body>
@@ -41,16 +52,20 @@
   					<span class="icon-bar"></span>
   					<span class="icon-bar"></span>
   					<span class="icon-bar"></span>
-  				</a>
-  				<a class="brand" href="http://en.wikipedia.org/wiki/Volver" target="_blank">לחזור 
+  				</a> 
+
+          <!--href="http://en.wikipedia.org/wiki/Volver" target="_blank"-->
+  				<a class="brand" >לחזור 
   					<img src='/static/Volver_99x40.png' class="img-rounded">
   					Volver
   				</a>
+
   				<div class="nav-collapse">
   					<ul class="nav">
   						<li><a href="#" id="about-btn" title="מה זה?"><i class="icon-question-sign"></i></a></li>
   						<li><a href="#" id="contact-btn" title="צרו קשר"><i class="icon-envelope"></i></a></li>
-  						<li><a href="mailto:?subject=Volver%20-%20לחזור&body=שמעת%20על%20לחזור?%20{{ config.WEBSITE_URL }}" title="שתפו במייל"><i class="icon-envelope-alt"></i></a></li>
+              <li><a href="#" id="refresh-btn" title="רענן"><i class="icon-refresh"></i></a></li>
+              <li>&nbsp;&nbsp;&nbsp;</li>
   						<!-- http://stackoverflow.com/questions/9320517/whats-the-most-efficient-way-to-add-social-media-like-and-1-buttons-to-you/9321347#9321347 -->
   						<li><a href="http://www.facebook.com/share.php?u={{ config.WEBSITE_URL }}" title="שתפו בפייסבוק"><i class="icon-facebook"></i></a></li>
   						<!-- https://dev.twitter.com/docs/tweet-button -->
@@ -58,6 +73,7 @@
   							<i class="icon-twitter"></i></a>
   						</li>
   						<li><a href="https://plusone.google.com/_/+1/confirm?hl=he&url={{ config.WEBSITE_URL }}" title="שתפו בגוגל+"><i class="icon-google-plus"></i></a></li>
+              <li><a href="mailto:?subject=Volver%20-%20לחזור&body=שמעת%20על%20לחזור?%20{{ config.WEBSITE_URL }}" title="שתפו במייל"><i class="icon-envelope-alt"></i></a></li>
   					</ul>
   				</div><!--/.nav-collapse -->  				
   			</div><!--/.container -->
@@ -90,7 +106,7 @@
   					<li><a href="http://python.org/">Python</a></li>
   					<li><a href="http://flask.pocoo.org/">Flask</a></li>
   					<li><a href="http://flask-pymongo.readthedocs.org/">Flask-PyMongo</a></li>
-  					<li><a href="http://packages.python.org/flask-mail/Flask-Mail/">Flask-Mail</a></li>
+  					<li><a href="https://github.com/sendgrid/sendgrid-python">sendgrid-python</a></li>
   					<li><a href="http://www.mongodb.org/">MongoDB</a></li>
   					<li>|</li>
   					<li><a href="http://www.heroku.com/">Heroku</a></li>
