@@ -1,9 +1,13 @@
 {% extends "base.html" %}
 
 {% block head %}
-
+<link href="/static/jquery-ui.css" rel="stylesheet">
+<script type="text/javascript" src="/static/jquery-ui.js"></script>
+<script src="/static/jquery.validate.min.js"></script>
+<script src="/static/jquery.validate.messages_he.js"></script>
 <script>
 $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+$DATE_FORMAT = "dd/mm/yy";
 function error_div(msg) {
 	return '<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button>'+msg+'</div>'
 }
@@ -21,12 +25,22 @@ function reverse_children_not_last(parent) {
 	var len = parent.children().size();
 	parent.children().each(function(i,child){if (i!=len-1){parent.prepend(child);}})
 }
-
+function validate_dates() {
+	var leavingStr = $('#datepicker_leaving').val();
+	var arrivingStr = $('#datepicker_arriving').val();
+	if (leavingStr && arrivingStr) {
+		var leavingDate = $.datepicker.parseDate( $DATE_FORMAT, leavingStr);
+		var arrivingDate = $.datepicker.parseDate( $DATE_FORMAT, arrivingStr);
+		return (arrivingDate >= leavingDate);
+	}
+	return true;
+}
 $(function() {
 	$("[id^=datepicker]").datepicker({ 
-		dateFormat: "dd/mm/yy", 
-		defaultDate: "+0"
-	});
+		dateFormat: $DATE_FORMAT, 
+		defaultDate: "+0"//,
+		//onSelect: validate_dates
+	})
 });
 $(function() { 
 	$("#source").change(function(){ 
@@ -76,6 +90,11 @@ $(function (){
       		dst.val(src_selected);
       	});
 })
+$(document).ready(function(){
+	jQuery.validator.addMethod("dates", validate_dates, "כדי להגיע צריך לצאת"); 
+	$("#main_form").validate();
+	$("#datepicker_arriving").rules("add", "dates");
+});
 </script>
 
 {% endblock head %}
@@ -83,7 +102,7 @@ $(function (){
 {% block main %}
 <div class="row-fluid">
 	<div class="span3">
-		<form class="form-horizontal" action="/" method="post">
+		<form id="main_form" class="form-horizontal" action="/" method="post">
 			<fieldset>
 				<div class="control-group">
 					<div class="controls">
@@ -155,13 +174,13 @@ $(function (){
 				<div class="control-group">
 					<label class="control-label" for="name">שם</label>
 					<div class="controls">
-						<input type="text" placeholder="החתול שמיל" name="name" required>
+						<input id="cname" type="text" placeholder="החתול שמיל" name="name" required>
 					</div> 
 				</div>  
 				<div class="control-group">
 					<label class="control-label" for="email">אימייל</label> 
 					<div class="controls">
-						<input type="text" placeholder="shmil@catmail.com" name="email" required>
+						<input id="cemail" type="email" placeholder="shmil@catmail.com" name="email" required>
 					</div>   
 				</div>  
 				<div class="control-group">
