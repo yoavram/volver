@@ -15,123 +15,122 @@
 	<link href="/static/bootstrap.rtl.css" rel="stylesheet">
 	<link href="/static/bootstrap-responsive.rtl.css" rel="stylesheet">
   <link href="/static/bootstrap-override.css" rel="stylesheet">
-	<link href="/static/font-awesome.css" rel="stylesheet">
+  <link href="/static/font-awesome.css" rel="stylesheet">
 
-	<!-- Le JS -->
-	<script type="text/javascript" src="/static/jquery-1.8.3.js"></script>
-	<script type="text/javascript" src="/static/bootstrap.rtl.js"></script>
+  <!-- Le JS -->
+  <script type="text/javascript" src="/static/jquery-1.8.3.js"></script>
+  <script type="text/javascript" src="/static/bootstrap.rtl.js"></script>
 
-  <!--
-  <link href="/static/responsive-tables.css" rel="stylesheet">
-  <script type="text/javascript" src="/static/responsive-tables.js"></script>
-  <script type="text/javascript" src="/static/bootstrap-transition.js"></script>
-  <script type="text/javascript" src="/static/bootstrap-collapse.js"></script-->
-	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
   <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-      {% block head %}
-      {% endblock head %}
+  {% block head %}
+  {% endblock head %}
   <script type="text/javascript">
   $(function() {
     $('#refresh-btn').click(function(){
       location.reload(true);
     });
   })
+  $(function() {
+    $("[rel=tooltip]").tooltip({'trigger':'hover'});
+  })
   </script>
-  </head>
+</head>
 
-  <body>
-  	<div class="navbar navbar-fixed-top">
-  		<div class="navbar-inner">
-  			<div class="container">
-  				<!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-  				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-  					<span class="icon-bar"></span>
-  					<span class="icon-bar"></span>
-  					<span class="icon-bar"></span>
-  				</a> 
+<body>
+ <div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+   <div class="container">
+    <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+     <span class="icon-bar"></span>
+     <span class="icon-bar"></span>
+     <span class="icon-bar"></span>
+   </a> 
 
-          <!--href="http://en.wikipedia.org/wiki/Volver" target="_blank"-->
-  				<a class="brand" >לחזור 
-  					<img src='/static/Volver_99x40.png' class="img-rounded">
-  					Volver
-  				</a>
+   <!--href="http://en.wikipedia.org/wiki/Volver" target="_blank"-->
+   <a class="brand" >לחזור 
+     <img src='/static/Volver_99x40.png' class="img-rounded">
+     Volver
+   </a>
 
-  				<div class="nav-collapse">
-  					<ul class="nav">
-  						<li><a href="#" id="about-btn" title="מה זה?"><i class="icon-question-sign"></i></a></li>
-  						<li><a href="#" id="contact-btn" title="צרו קשר"><i class="icon-envelope"></i></a></li>
-              <li><a href="#" id="refresh-btn" title="רענן"><i class="icon-refresh"></i></a></li>
-              <li>&nbsp;&nbsp;&nbsp;</li>
-  						<!-- http://stackoverflow.com/questions/9320517/whats-the-most-efficient-way-to-add-social-media-like-and-1-buttons-to-you/9321347#9321347 -->
-  						<li><a href="http://www.facebook.com/share.php?u={{ config.WEBSITE_URL }}" title="שתפו בפייסבוק"><i class="icon-facebook"></i></a></li>
-  						<!-- https://dev.twitter.com/docs/tweet-button -->
-  						<li><a href="https://twitter.com/share?url={{ config.WEBSITE_URL }}&text=לחזור+-+מתאמים+כיוונים+בקרטרה+אוסטרל&lang=he&counturl={{ config.WEBSITE_URL }}" class="twitter-share-button" data-lang="he" title="שתפו בטוויטר">
-  							<i class="icon-twitter"></i></a>
-  						</li>
-  						<li><a href="https://plusone.google.com/_/+1/confirm?hl=he&url={{ config.WEBSITE_URL }}" title="שתפו בגוגל+"><i class="icon-google-plus"></i></a></li>
-              <li><a href="mailto:?subject=Volver%20-%20לחזור&body=שמעת%20על%20לחזור?%20{{ config.WEBSITE_URL }}" title="שתפו במייל"><i class="icon-envelope-alt"></i></a></li>
-  					</ul>
-  				</div><!--/.nav-collapse -->  				
-  			</div><!--/.container -->
-  		</div><!--/.navbar-inner -->
-  	</div><!--/.navbar -->
+   <div class="nav-collapse">
+     <ul class="nav">
+      <li><a href="#" id="about-btn" rel="tooltip" title="מה זה?"><i class="icon-question-sign"></i></a></li>
+      <li><a href="#" id="contact-btn" rel="tooltip" title="צרו קשר"><i class="icon-envelope"></i></a></li>
+      <li><a href="#" id="refresh-btn" rel="tooltip" title="רענן"><i class="icon-refresh"></i></a></li>
+      <li>&nbsp;&nbsp;&nbsp;</li>
+      <!-- http://stackoverflow.com/questions/9320517/whats-the-most-efficient-way-to-add-social-media-like-and-1-buttons-to-you/9321347#9321347 -->
+      <li><a href="http://www.facebook.com/share.php?u={{ config.WEBSITE_URL }}" rel="tooltip" title="שתפו בפייסבוק"><i class="icon-facebook"></i></a></li>
+      <!-- https://dev.twitter.com/docs/tweet-button -->
+      <li><a href="https://twitter.com/share?url={{ config.WEBSITE_URL }}&text=לחזור+-+מתאמים+כיוונים+בקרטרה+אוסטרל&lang=he&counturl={{ config.WEBSITE_URL }}" class="twitter-share-button" data-lang="he" rel="tooltip" title="שתפו בטוויטר">
+       <i class="icon-twitter"></i></a>
+     </li>
+     <li><a href="https://plusone.google.com/_/+1/confirm?hl=he&url={{ config.WEBSITE_URL }}" rel="tooltip" title="שתפו בגוגל+"><i class="icon-google-plus"></i></a></li>
+     <li><a href="mailto:?subject=Volver%20-%20לחזור&body=שמעת%20על%20לחזור?%20{{ config.WEBSITE_URL }}" rel="tooltip" title="שתפו במייל"><i class="icon-envelope-alt"></i></a></li>
+   </ul>
+ </div><!--/.nav-collapse -->  				
+</div><!--/.container -->
+</div><!--/.navbar-inner -->
+</div><!--/.navbar -->
 
-  	<!-- BODY -->	
-  	{% include "about.html" %}
-    {% include "contact.html" %}
+<!-- BODY -->	
+{% include "about.html" %}
+{% include "contact.html" %}
 
-    {% block main %}
-  	
-    {% endblock %}
-  	
-  	<!-- FOOTER -->
-  	<div class="row-fluid">
-  		<div class="span10 offset1">
-  			<footer class="colophon"> 
-  				{% block footer %}
-  				{% endblock footer %}
+{% block main %}
 
-  				<ul class="quick-links">					
-  					<li><a href="http://blog.getbootstrap.com/">Twitter Bootstrap</a></li>
-  					<li><a href="https://github.com/AbdullahDiaa/Bootstrap-RTL">Bootstrap-RTL</a></li>
-  					<li><a href="http://fortawesome.github.com/Font-Awesome/">Font Awesome</a></li>	
-  					<li><a href="http://jquery.com/">jQuery</a></li>
-            <li><a href="http://bassistance.de/jquery-plugins/jquery-plugin-validation/">jQuery Validation</a></li>
-  					<li><a href="http://jqueryui.com/">jQuery UI</a></li>
-  					<li><a href="https://developers.google.com/maps/">Google Maps API</a></li>
-  					<br>
-  					<li><a href="http://python.org/">Python</a></li>
-  					<li><a href="http://flask.pocoo.org/">Flask</a></li>
-  					<li><a href="http://flask-pymongo.readthedocs.org/">Flask-PyMongo</a></li>
-  					<li><a href="https://github.com/sendgrid/sendgrid-python">sendgrid-python</a></li>
-  					<li><a href="http://www.mongodb.org/">MongoDB</a></li>
-  					<li>|</li>
-  					<li><a href="http://www.heroku.com/">Heroku</a></li>
-  					<li><a href="http://www.mongolab.com/">MongoLab</a></li>
-  					<li><a href="http://sendgrid.com/">SendGrid</a></li>
-  				</ul>
-  				<ul class="quick-links">					
-  					<li>© כל הזכויות שמורות ל<a href="mailto:{{ config.EMAIL }}">{{ config.WEBSITE_NAME }}</a></li>
-  				</ul>
-          {% if not config.DEBUG %}
-          <script type="text/javascript">
+{% endblock %}
 
-            var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', '{{ GOOGLE_ANALYTICS }}']);
-            _gaq.push(['_trackPageview']);
+<!-- FOOTER -->
+<div class="row-fluid">
+  <div class="span10 offset1">
+   <footer class="colophon"> 
+    {% block footer %}
+    {% endblock footer %}
 
-            (function() {
-              var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-              ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-            })();
+    <ul class="quick-links">					
+     <li><a href="http://blog.getbootstrap.com/">Twitter Bootstrap</a></li>
+     <li><a href="https://github.com/AbdullahDiaa/Bootstrap-RTL">Bootstrap-RTL</a></li>
+     <li><a href="http://fortawesome.github.com/Font-Awesome/">Font Awesome</a></li>	
+     <li><a href="http://jquery.com/">jQuery</a></li>
+     <li><a href="http://bassistance.de/jquery-plugins/jquery-plugin-validation/">jQuery Validation</a></li>
+     <li><a href="http://jqueryui.com/">jQuery UI</a></li>
+     <li><a href="https://developers.google.com/maps/">Google Maps API</a></li>
+     <br>
+     <li><a href="http://python.org/">Python</a></li>
+     <li><a href="http://flask.pocoo.org/">Flask</a></li>
+     <li><a href="http://flask-pymongo.readthedocs.org/">Flask-PyMongo</a></li>
+     <li><a href="https://github.com/sendgrid/sendgrid-python">sendgrid-python</a></li>
+     <li><a href="http://www.mongodb.org/">MongoDB</a></li>
+     <li>|</li>
+     <li><a href="http://www.heroku.com/">Heroku</a></li>
+     <li><a href="http://www.mongolab.com/">MongoLab</a></li>
+     <li><a href="http://sendgrid.com/">SendGrid</a></li>
+   </ul>
+   <ul class="quick-links">					
+     <li>© כל הזכויות שמורות ל<a href="mailto:{{ config.EMAIL }}">{{ config.WEBSITE_NAME }}</a></li>
+   </ul>
+   {% if not config.DEBUG %}
+   <script type="text/javascript">
 
-          </script>
-          {% endif %}
-  			</footer>
-  		</div>
-  	</div>
-  </body>
-  </html>
+   var _gaq = _gaq || [];
+   _gaq.push(['_setAccount', '{{ GOOGLE_ANALYTICS }}']);
+   _gaq.push(['_trackPageview']);
+
+   (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+  {% endif %}
+</footer>
+</div>
+</div>
+</body>
+</html>

@@ -22,19 +22,19 @@
 		{% for p in posts if (p.direction == direction) or (direction == 'all') %}
 		<tr id="post_{{ p._id }}">
 			<td>
-				<a href="#" class="spaghetti" id="{{ p._id }}">{{ p.name }}</a>
+				<a href="#" class="spaghetti" id="{{ p._id }}" rel="tooltip" title="לחצו לשליחת מייל">{{ p.name }}</a>
 			</td>
 			<td>
 				{{ p.source }}
 			</td>
 			<td>
-				{{ p.leaving|format_date_short }} {% if p.flex_leaving %}<i class="icon-resize-full" title="גמיש"></i>{% endif %}
+				{{ p.leaving|format_date_short }} {% if p.flex_leaving %}<i class="icon-resize-full" rel="tooltip" title="גמיש"></i>{% endif %}
 			</td>
 			<td>
 				{{ p.destination }}
 			</td>
 			<td>
-				{{ p.arriving|format_date_short }} {% if p.flex_arriving %}<i class="icon-resize-full" title="גמיש"></i>{% endif %}
+				{{ p.arriving|format_date_short }} {% if p.flex_arriving %}<i class="icon-resize-full" rel="tooltip" title="גמיש"></i>{% endif %}
 			</td>
 		</tr>				
 		{% endfor %}

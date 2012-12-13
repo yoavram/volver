@@ -104,6 +104,7 @@ $(function() {
 })
 
 $(document).ready(function(){
+	$("[rel=tooltip]").tooltip({'trigger':'hover'});
 	jQuery.validator.addMethod("dates", validate_dates, 'קודם יוצאים אח"כ מגיעים'); 
 	$("#main_form").validate();
 	$("#datepicker_arriving").rules("add", "dates");
@@ -197,10 +198,10 @@ $(document).ready(function(){
 				<div class="control-group">
 					<div class="controls" >
 						<div class="btn-group">
-						<button class="btn btn-inverse" type="submit" title="שלח: מלא את כל השדות">
+						<button class="btn btn-inverse" type="submit" rel="tooltip" title="שלח: מלא את כל השדות">
 							<i class="icon-ok"></i> שליחה
 						</button>
-						<button class="btn" id="make_match" title="חיפוש: מלא את 'יעד' ואת מגיעים'">
+						<button class="btn" id="make_match" rel="tooltip" title="חיפוש: מלא את 'יעד' ואת מגיעים'">
 							<i class="icon-search"></i> חיפוש
 						</button>
 						

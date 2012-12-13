@@ -12,3 +12,8 @@
     *width: 100% !important;
   }
 }
+
+[rel="tooltip"]{
+  cursor: pointer;
+  display:inline-block; /* chrome-fix */
+}
