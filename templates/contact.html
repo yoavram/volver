@@ -1,21 +1,21 @@
 <div id="popout-contact" class="well container" style="width: 40%; alignment-adjust: center; display: none;">
 		<form action="/contact" id="contact_form">
 			<div class="span3">
-				<label class="control-label" for="name">שם</label>
+				<label class="control-label" for="name"><i class="icon-user"></i> שם</label>
 				<input type="text" placeholder="החתול שמיל" name="name" required>
-				<label class="control-label" for="email">אימייל</label> 
+				<label class="control-label" for="email"><i class="icon-envelope-alt"></i> דוא"ל</label> 
 				<input type="text" placeholder="shmil@catmail.com" name="email" required>
-				<label class="control-label" for="subject">נושא</label>
+				<label class="control-label" for="subject"><i class="icon-tag"></i> נושא</label>
 				<input type="text" placeholder="קומו אסטס?" name="subject" required>
 			</div>
 			<div class="span3">
 				<button type="button" class="close pull-left" id="close-contact-btn">&times;</button>
-				<label class="control-label" for="message">הודעה &nbsp; 
+				<label class="control-label" for="message"><i class="icon-comment-alt"></i> הודעה &nbsp; 
 					<span class="label label-success" id="message-sent">ההודעה נשלחה</span>
 					<span class="label label-warning" id="message-warning">ההודעה לא נשלחה</span>
 				</label> 
 				<textarea rows="6" name="message" placeholder="טודו ביין?" required></textarea>
-				<button class="btn btn-inverse pull-right" type="submit" id="submit">שלח</button>
+				<button class="btn btn-inverse pull-right" type="submit" id="submit">שלח <i class="icon-ok"></i></button>
 			</div>
 
 		</form>
