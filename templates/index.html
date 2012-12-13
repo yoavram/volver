@@ -136,7 +136,7 @@ $(document).ready(function(){
 					<label class="control-label" for="source">מוצא 
 					</label>
 					<div class="controls"><i class="icon-map-marker"></i> 
-						<select class="input-medium" name="source" id="source" required>
+						<select class="span8" name="source" id="source" required>
 							{% for k,v in sort_atlas_by_field(atlas,field='lat',reverse=True) %}
 							<option value="{{ v.he }}" lat="{{ v.lat }}" lng="{{ v.lng }}">{{ v.he }}</option>
 							{% endfor %}
@@ -144,7 +144,7 @@ $(document).ready(function(){
 						</select>
 						<div id="custom_source" style="display: none;">
 							<p></p>
-							<input class="input-medium" type="text" name="custom_source" placeholder="מאיפה?" />
+							<input class="span8" type="text" name="custom_source" placeholder="מאיפה?" />
 						</div>
 					</div>
 				</div>
@@ -152,7 +152,7 @@ $(document).ready(function(){
 					<label class="control-label" for="destination">יעד 
 					</label>
 					<div class="controls"><i class="icon-map-marker"></i> 
-						<select class="input-medium" name="destination" id="destination" required>
+						<select class="span8" name="destination" id="destination" required>
 							{% for k,v in sort_atlas_by_field(atlas,field='lat',reverse=False) %}
 							<option value="{{ v.he }}" lat="{{ v.lat }}" lng="{{ v.lng }}">{{ v.he }}</option>
 							{% endfor %}
@@ -160,14 +160,14 @@ $(document).ready(function(){
 						</select>
 						<div id="custom_destination" style="display: none;">
 							<p></p>
-							<input class="input-medium" type="text" name="custom_destination" placeholder="לאן?" />
+							<input class="span8" type="text" name="custom_destination" placeholder="לאן?" />
 						</div>
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="datepicker_leaving">יוצאים </label>
 					<div class="controls"><i class="icon-calendar"></i>  						
-						<input class="input-small" type="text" id="datepicker_leaving" name="leaving" required/>&nbsp;
+						<input class="span7" type="text" id="datepicker_leaving" name="leaving" required/>&nbsp;
 						<label class="checkbox inline">
 							<input type="checkbox" name="flex_leaving">&nbsp;גמיש
 						</label>
@@ -176,7 +176,7 @@ $(document).ready(function(){
 				<div class="control-group">
 					<label class="control-label" for="datepicker_arriving">מגיעים</label>
 					<div class="controls"><i class=" icon-calendar"></i>
-						<input class="input-small" type="text" id="datepicker_arriving" name="arriving" required/>&nbsp;
+						<input class="span7" type="text" id="datepicker_arriving" name="arriving" required/>&nbsp;
 						<label class="checkbox inline">
 							<input type="checkbox" name="flex_arriving">&nbsp;גמיש
 						</label>
@@ -185,13 +185,13 @@ $(document).ready(function(){
 				<div class="control-group">
 					<label class="control-label" for="name">שם</label>
 					<div class="controls"><i class="icon-user"></i>
-						<input id="cname" class="input-medium" type="text" placeholder="החתול שמיל" name="name" required>
+						<input id="cname" class="span8" type="text" placeholder="החתול שמיל" name="name" required>
 					</div> 
 				</div>  
 				<div class="control-group">
 					<label class="control-label" for="email">דוא"ל</label> 
 					<div class="controls"><i class="icon-envelope-alt"></i>
-						<input id="cemail" class="input-medium" type="email" placeholder="shmil@catmail.com" name="email" required>
+						<input id="cemail" class="span8" type="email" placeholder="shmil@catmail.com" name="email" required>
 					</div>   
 				</div>  
 				<div class="control-group">
