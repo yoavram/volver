@@ -104,7 +104,6 @@ $(function() {
 })
 
 $(document).ready(function(){
-	$("[rel=tooltip]").tooltip({'trigger':'hover'});
 	jQuery.validator.addMethod("dates", validate_dates, 'קודם יוצאים אח"כ מגיעים'); 
 	$("#main_form").validate();
 	$("#datepicker_arriving").rules("add", "dates");
