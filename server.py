@@ -5,9 +5,8 @@ sys.setdefaultencoding('utf-8')
 
 from flask import Flask, request, render_template, redirect, Response, url_for
 import os
-from flask.ext.pymongo import PyMongo, ASCENDING 
+from flask.ext.pymongo import PyMongo, ObjectId, ASCENDING
 from datetime import datetime
-from bson import ObjectId
 import simplejson
 from atlas import atlas
 from apscheduler.scheduler import Scheduler
@@ -50,6 +49,7 @@ def short_string_from_datetime(datetime_obj):
 
 def sort_atlas_by_field(atlas, field='lat', reverse=False):
 	return sorted(atlas.items(), key=lambda x: x[1][field], reverse=reverse)
+
 
 def process_form(form):
 	form['leaving'] = datetime_from_string(form['leaving'])
@@ -174,6 +174,17 @@ def make_matches():
 	matches = get_collection().find({'leaving':arriving, 'source':destination})
 	oid = [str(p['_id']) for p in matches]
 	return jsonify(result=oid)
+
+
+@app.route('/spaghetti')
+def spaghetti():
+	_id = request.args.get('id', type=unicode)
+	oid = ObjectId(_id)
+	item = get_collection().find_one({'_id':oid})
+	if item:
+		return jsonify(result=item['email'])
+	else:
+		return jsonify(result=None)
 
 
 @app.route('/delete/<string:secret>')

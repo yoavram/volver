@@ -91,6 +91,18 @@ $(function (){
       		dst.val(src_selected);
       	});
 })
+$(function() {
+	$('a[class=spaghetti]').click(function() {
+		var id = $(this).attr('id');
+		$.getJSON($SCRIPT_ROOT + '/spaghetti', {
+			id: id
+		}, function(data) {
+			var href = '<a href="mailto:' + data.result + '?subject={{config.WEBSITE_NAME}}"></a>';
+			$(href).appendTo('body')[0].click().remove();
+		});
+	});
+})
+
 $(document).ready(function(){
 	jQuery.validator.addMethod("dates", validate_dates, 'קודם יוצאים אח"כ מגיעים'); 
 	$("#main_form").validate();
