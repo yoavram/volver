@@ -38,8 +38,8 @@ function validate_dates() {
 $(function() {
 	$("[id^=datepicker]").datepicker({ 
 		dateFormat: $DATE_FORMAT, 
-		defaultDate: "+0"//,
-		//onSelect: validate_dates
+		defaultDate: "+0",
+		isRTL: true
 	})
 });
 $(function() { 
@@ -91,7 +91,7 @@ $(function (){
       	});
 })
 $(document).ready(function(){
-	jQuery.validator.addMethod("dates", validate_dates, "כדי להגיע צריך לצאת"); 
+	jQuery.validator.addMethod("dates", validate_dates, 'קודם יוצאים אח"כ מגיעים'); 
 	$("#main_form").validate();
 	$("#datepicker_arriving").rules("add", "dates");
 });

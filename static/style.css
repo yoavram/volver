@@ -16,6 +16,11 @@ Theme URI: http://markdotto.com/
   padding-bottom: 15px;
 }
 
+label.error {
+  color: #E00922;
+  font-size: small;
+}
+
 /* Body resets
 -------------------------------------------------- */
 
