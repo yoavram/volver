@@ -38,7 +38,7 @@
 			</td>
 			<td>
 				{% if p.comments %}
-				<a href="#" class="link-icon" onclick="show_comments('{{ p._id }}')" rel="tooltip" title="הערות"><i class="icon-comment-alt"></i></a>
+				<a href="#" class="link-icon" onclick="show_comments('{{ p._id }}')"><i class="icon-sort-down"></i></a>
 				{% endif %}
 			</td>
 		</tr>
@@ -46,7 +46,7 @@
 		<tr id="comments_{{ p._id }}" style="display: none;">
 			<td colspan="5">{{ p.comments }}</td>
 			<td>
-				<a onclick="hide_comments('{{ p._id }}')" class="link-icon" rel="tooltip" title="לסגור">
+				<a onclick="hide_comments('{{ p._id }}')" class="link-icon">
 					<i class="icon-remove"></i>
 				</a>
 			</td>
