@@ -36,7 +36,22 @@
 			<td>
 				{{ p.arriving|format_date_short }} {% if p.flex_arriving %}<i class="icon-resize-full" rel="tooltip" title="גמיש"></i>{% endif %}
 			</td>
-		</tr>				
+			<td>
+				{% if p.comments %}
+				<a href="#" id="show-comments-btn_{{ p._id }}"><i class="icon-comment"></i></a>
+				{% endif %}
+			</td>
+		</tr>
+		{% if p.comments %}
+		<tr id="comments_{{ p._id }}" style="display: none;">
+			<td>{{ p.comments }}</td>
+			<td>
+				<a href="#" id="hide-comments-btn_{{ p._id }}">
+					<i class="icon-remove"></i>
+				</a>
+			</td>
+		</tr>
+		{% endif %}
 		{% endfor %}
 	</tbody>
 </table>
