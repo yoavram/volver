@@ -22,7 +22,7 @@
 		{% for p in posts if (p.direction == direction) or (direction == 'all') %}
 		<tr id="post_{{ p._id }}">
 			<td>
-				<a href="#" class="spaghetti" id="{{ p._id }}" rel="tooltip" title="לחצו לשליחת מייל">{{ p.name }}</a>
+				<a href="#" class="spaghetti" id="{{ p._id }}" rel="tooltip" title="לשליחת מייל">{{ p.name }}</a>
 			</td>
 			<td>
 				{{ p.source }}
@@ -38,15 +38,15 @@
 			</td>
 			<td>
 				{% if p.comments %}
-				<a href="#" id="show-comments-btn_{{ p._id }}"><i class="icon-comment"></i></a>
+				<a href="#" class="link-icon" onclick="show_comments('{{ p._id }}')" rel="tooltip" title="הערות"><i class="icon-comment-alt"></i></a>
 				{% endif %}
 			</td>
 		</tr>
 		{% if p.comments %}
 		<tr id="comments_{{ p._id }}" style="display: none;">
-			<td>{{ p.comments }}</td>
+			<td colspan="5">{{ p.comments }}</td>
 			<td>
-				<a href="#" id="hide-comments-btn_{{ p._id }}">
+				<a onclick="hide_comments('{{ p._id }}')" class="link-icon" rel="tooltip" title="לסגור">
 					<i class="icon-remove"></i>
 				</a>
 			</td>
@@ -55,3 +55,11 @@
 		{% endfor %}
 	</tbody>
 </table>
+<script type="text/javascript">
+function show_comments(id) {
+	$('#comments_' + id).show();
+}
+function hide_comments(id) {
+	$('#comments_' + id).hide();
+}
+</script>

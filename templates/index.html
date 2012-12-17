@@ -208,8 +208,10 @@ $(document).ready(function(){
 				<div class="control-group">
 					<label class="control-label" for="comments" id="comments_label">הערות</label> 
 					<div class="controls">
-						<a href="#" id="comments-btn"><i id="comments-btn-icon" class="icon-arrow-left" style="vertical-align: top;"></i></a>
-						<textarea id="ccomments" class="span9" rows=6 placeholder="יש גם מקום פנוי בהלוך" name="comments" style="display: none;"></textarea>
+						<a href="#" onclick="$('#ccomments').show();$('#comments-close-btn').show();" class="link-icon"><i class="icon-pencil"></i></a>
+						<textarea id="ccomments" class="span8" rows=3 placeholder="יש גם מקום פנוי בהלוך" name="comments" style="display: none;"></textarea>
+						<a href="#" id="comments-close-btn" onclick="$('#ccomments').hide();$('#comments-close-btn').hide();" class="link-icon" style="display: none;"><i class="icon-remove"></i></a>
+
 					</div>   
 				</div>  
 				<div class="control-group">
