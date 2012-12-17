@@ -102,6 +102,17 @@ $(function() {
 		});
 	});
 })
+$(function() {
+	$('#comments-btn').click(function() {		
+		if ($('#ccomments').css('display') == 'none') {
+			$('#ccomments').show();
+			$('#comments-btn-icon').removeClass().addClass('icon-remove');
+		} else {
+			$('#ccomments').hide();
+			$('#comments-btn-icon').removeClass().addClass('icon-arrow-left');
+		}
+	});
+})
 
 $(document).ready(function(){
 	jQuery.validator.addMethod("dates", validate_dates, 'קודם יוצאים אח"כ מגיעים'); 
@@ -192,6 +203,13 @@ $(document).ready(function(){
 					<label class="control-label" for="email">דוא"ל</label> 
 					<div class="controls"><i class="icon-envelope-alt"></i>
 						<input id="cemail" class="span8" type="email" placeholder="shmil@catmail.com" name="email" required>
+					</div>   
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="comments" id="comments_label">הערות</label> 
+					<div class="controls">
+						<a href="#" id="comments-btn"><i id="comments-btn-icon" class="icon-arrow-left" style="vertical-align: top;"></i></a>
+						<textarea id="ccomments" class="span9" rows=6 placeholder="יש גם מקום פנוי בהלוך" name="comments" style="display: none;"></textarea>
 					</div>   
 				</div>  
 				<div class="control-group">
