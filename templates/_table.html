@@ -20,6 +20,27 @@
 	</thead>
 	<tbody>
 		{% for p in posts if (p.direction == direction) or (direction == 'all') %}
+		{% if loop.index0%8 == 3 %}
+		<tr class="tr-adsense">
+			<td colspan="6">
+				{% if not config.DEBUG %}
+					<script type="text/javascript"><!--
+					google_ad_client = "ca-pub-8407487481882711";
+					/* מודעות בטבלה */
+					google_ad_slot = "5228184421";
+					google_ad_width = 468;
+					google_ad_height = 15;
+					//-->
+					</script>
+					<script type="text/javascript"
+					src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+					</script>
+				{% else %}
+					<img src="/static/adlinks_468x15.png" alt="AdLinks" title="AdLinks">
+				{% endif %}
+			</td>
+		</tr>
+		{% endif %}
 		<tr id="post_{{ p._id }}">
 			<td>
 				<a href="#" class="spaghetti" id="{{ p._id }}" rel="tooltip" title="לשליחת מייל">{{ p.name }}</a>
