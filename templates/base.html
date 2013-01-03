@@ -53,13 +53,15 @@
    </a> 
 
    <!--href="http://en.wikipedia.org/wiki/Volver" target="_blank"-->
-   <a class="brand" id="about-btn" style="cursor: pointer" rel="tooltip" title="מה זה?">לחזור 
+   <a class="brand">לחזור 
      <img src='/static/Volver_99x40.png' class="img-rounded">
      Volver
    </a>
 
    <div class="nav-collapse">
      <ul class="nav">
+      <li><a href="#" id="about-btn"><i class="icon-info-sign" rel="tooltip" title="מה זה?"></i></a></li>
+      <li><a href="#" id="howto-btn"><i class="icon-dashboard" rel="tooltip" title="מדריך למשתמש"></i></a></li>
       <li><a href="#" id="contact-btn"><i class="icon-envelope" rel="tooltip" title="צרו קשר"></i></a></li>
       <li><a href="#" id="refresh-btn"><i class="icon-refresh" rel="tooltip" title="לרענון"></i></a></li>
       <li>&nbsp;&nbsp;&nbsp;</li>
@@ -79,6 +81,7 @@
 
 <!-- BODY -->	
 {% include "about.html" %}
+{% include "howto.html" %}
 {% include "contact.html" %}
 
 {% block main %}

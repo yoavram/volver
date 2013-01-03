@@ -6,6 +6,7 @@ sys.setdefaultencoding('utf-8')
 from flask import Flask, request, render_template, redirect, Response, url_for
 import os
 from flask.ext.pymongo import PyMongo, ObjectId, ASCENDING
+from flaskext.markdown import Markdown
 from datetime import datetime
 import simplejson
 from atlas import atlas
@@ -80,6 +81,7 @@ MAIL_PASSWORD = os.environ.get("SENDGRID_PASSWORD")
 app = Flask(__name__)
 app.config.from_object(__name__)  
 app.config.from_pyfile('config.py', True)
+Markdown(app)
 
 # init mail http://sendgrid.com/docs/Code_Examples/python.html
 mail = Sendgrid(app.config['MAIL_USERNAME'], app.config['MAIL_PASSWORD'], secure=True)
@@ -104,7 +106,7 @@ app.jinja_env.filters['format_date'] = string_from_datetime
 app.jinja_env.filters['format_date_short'] = short_string_from_datetime
 app.jinja_env.globals['atlas'] = atlas
 app.jinja_env.globals['sort_atlas_by_field'] = sort_atlas_by_field
-
+app.jinja_env.globals['howto'] = open("templates/howto.md").read()  
 
 def send_welcome_mail(post):
 	delete_link = request.url_root[:-1] + url_for('delete', secret=post['secret'])

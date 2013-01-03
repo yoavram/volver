@@ -1,0 +1,16 @@
+<div id="popout-howto" class="well container" style="width: 66%; display: none;">
+<button type="button" class="close" id="close-howto-btn">&times;</button>
+{{ howto | markdown }}
+</div>
+
+<script type="text/javascript">
+$(function() {
+	$("[id^=close-howto-]").click(function() {
+		$('#popout-howto').hide();
+	});
+	$("#howto-btn").click(function (){
+		$('[id^=popout]').hide();
+		$('#popout-howto').show();
+	});
+})
+</script>
