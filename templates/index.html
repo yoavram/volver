@@ -5,6 +5,8 @@
 <script type="text/javascript" src="/static/jquery-ui.custom.min.js"></script>
 <script src="/static/jquery.validate.min.js"></script>
 <script src="/static/jquery.validate.messages_he.js"></script>
+<script src="/static/mailcheck.js"></script>
+
 <script>
 $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 $DATE_FORMAT = "dd/mm/yy";
@@ -121,6 +123,24 @@ $(document).ready(function(){
 });
 </script>
 
+<script>
+$(function() {
+	$('#cemail').on('blur', function() {
+		$(this).mailcheck({
+			domains: ['hotmail.com', 'gmail.com', 'aol.com', 'walla.com', 'yahoo.com', 'inter.net.il','012.net.il', 'netvision.net.il'],                       
+			topLevelDomains: ["com", "net", "org", 'co.il', 'net.il'],       
+			suggested: function(element, suggestion) {
+				$('#checkmail-label').html("האם התכוונת ל-<a href='#' id='checkmail-btn'>" + suggestion['full'] + "</a>?");
+				$('#checkmail-btn').click(function() {
+					$('#cemail').val(suggestion['full']);
+					$('#checkmail-label').html('');
+				})
+			}
+		});
+	});
+})
+</script>
+
 {% endblock head %}
 
 {% block main %}
@@ -204,6 +224,7 @@ $(document).ready(function(){
 					<label class="control-label" for="email">דוא"ל</label> 
 					<div class="controls"><i class="icon-envelope-alt"></i>
 						<input id="cemail" class="span8" type="email" placeholder="shmil@catmail.com" name="email" required>
+					<label id="checkmail-label"  style="display: block; font-size: small;"></label>
 					</div>   
 				</div>
 				<div class="control-group">
