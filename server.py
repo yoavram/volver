@@ -94,7 +94,7 @@ css_base = Bundle('style.css', 'bootstrap.rtl.css', 'bootstrap-responsive.rtl.cs
 	filters="yui_css", output='base.css')
 assets.register('css_base', css_base)
 
-js_index = Bundle("jquery-ui.custom.min.js", "jquery.validate.min.js", "jquery.validate.messages_he.js", "mailcheck.js",
+js_index = Bundle("jquery-ui.custom.min.js", "jquery.validate.js", "jquery.validate.messages_he.js", "mailcheck.js",
 	filters='yui_js', output='index.js')
 assets.register('js_index', js_index)
 
