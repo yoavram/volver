@@ -7,6 +7,7 @@ from flask import Flask, request, render_template, redirect, Response, url_for
 import os
 from flask.ext.pymongo import PyMongo, ObjectId, ASCENDING
 from flaskext.markdown import Markdown
+from flask.ext.assets import Environment, Bundle
 from datetime import datetime
 import simplejson
 from atlas import atlas
@@ -82,6 +83,24 @@ app = Flask(__name__)
 app.config.from_object(__name__)  
 app.config.from_pyfile('config.py', True)
 Markdown(app)
+
+# init Assets
+assets = Environment(app)
+js_base = Bundle('jquery-1.8.3.js', 'bootstrap.rtl.js',
+            filters=('yui_js'), output='base.js')
+assets.register('js_base', js_base)
+
+css_base = Bundle('style.css', 'bootstrap.rtl.css', 'bootstrap-responsive.rtl.css', 'bootstrap-override.css', 'font-awesome.css',
+	filters="yui_css", output='base.css')
+assets.register('css_base', css_base)
+
+js_index = Bundle("jquery-ui.custom.min.js", "jquery.validate.min.js", "jquery.validate.messages_he.js", "mailcheck.js",
+	filters='yui_js', output='index.js')
+assets.register('js_index', js_index)
+
+css_index = Bundle('jquery-ui.custom.css',
+	filters="yui_css", output='index.css')
+assets.register('css_index', css_index)
 
 # init mail http://sendgrid.com/docs/Code_Examples/python.html
 mail = Sendgrid(app.config['MAIL_USERNAME'], app.config['MAIL_PASSWORD'], secure=True)

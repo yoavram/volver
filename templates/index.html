@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 
 {% block head %}
-<link href="/static/jquery-ui.custom.css" rel="stylesheet">
-<script type="text/javascript" src="/static/jquery-ui.custom.min.js"></script>
-<script src="/static/jquery.validate.min.js"></script>
-<script src="/static/jquery.validate.messages_he.js"></script>
-<script src="/static/mailcheck.js"></script>
+
+{% assets "css_index" %}
+    <link href="{{ ASSET_URL }}" rel="stylesheet">
+{% endassets %}
+
+{% assets "js_index" %}
+    <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+{% endassets %}
 
 <script>
 $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
