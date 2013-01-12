@@ -119,7 +119,7 @@ else:
 	if mongo:
 		print " * Connection to database established"
 		def get_collection():
-			return mongo.db.CarreteraAustralDev
+			return mongo.db.CarreteraAustral
 
 app.jinja_env.filters['format_date'] = string_from_datetime
 app.jinja_env.filters['format_date_short'] = short_string_from_datetime
