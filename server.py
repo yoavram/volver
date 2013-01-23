@@ -14,8 +14,7 @@ from atlas import atlas
 from apscheduler.scheduler import Scheduler
 import uuid
 from sendgrid import Sendgrid, Message
-import cloudinary
-from cloudinary import uploader
+import cloudinary, cloudinary.uploader, cloudinary.api
 
 DATE_FORMAT = "%d/%m/%Y"
 SHORT_DATE_FORMAT = "%d/%m/%y"
@@ -183,19 +182,30 @@ def add_post(post):
 def remove_old_posts():
 	now = datetime.now()
 	cursor = get_collection().find()
+	photo_ids = []
 	for p in cursor:
 		delta = now - p['arriving']
 		if delta.days > DAYS_TO_EXPIRE:
 			print "Removing old post: "
 			print p
+			if 'photo_id' in p:
+				photo_ids.append(p['photo_id'])	
 			get_collection().remove(p['_id'])
-
+	remove_photos(photo_ids)
 
 def add_photo(photo):
 	params = uploader.build_upload_params()
 	json_result = uploader.call_api("upload", params, file=photo.stream)
     	return json_result['public_id'], json_result['format']
 
+
+def remove_photos(photo_ids):
+	json_result = api.delete_resources(photo_ids)
+	if json_result['partial']:
+		print "Partial deletion of photos:", json_result
+	for k,v in json_result['deleted']:
+		if v != 'deleted':
+			print "Photo not deleted:", k
 
 @app.route("/",  methods=['GET', 'POST'])
 def index():
