@@ -86,19 +86,19 @@ Markdown(app)
 
 # init Assets
 assets = Environment(app)
-js_base = Bundle('jquery-1.8.3.js', 'bootstrap.rtl.js',
+js_base = Bundle('js/jquery-1.8.3.js', 'js/bootstrap.rtl.js',
             filters=('yui_js'), output='base.js')
 assets.register('js_base', js_base)
 
-css_base = Bundle('style.css', 'bootstrap.rtl.css', 'bootstrap-responsive.rtl.css', 'bootstrap-override.css', 'font-awesome.css',
+css_base = Bundle('css/style.css', 'css/bootstrap.rtl.css', 'css/bootstrap-responsive.rtl.css', 'css/bootstrap-override.css', 'css/font-awesome.css', 'css/font-awesome-ie7.css',
 	filters="yui_css", output='base.css')
 assets.register('css_base', css_base)
 
-js_index = Bundle("jquery-ui.custom.min.js", "jquery.validate.js", "jquery.validate.messages_he.js", "mailcheck.js",
+js_index = Bundle("js/jquery-ui.custom.min.js", "js/jquery.validate.js", "js/jquery.validate.messages_he.js", "js/mailcheck.js",
 	filters='yui_js', output='index.js')
 assets.register('js_index', js_index)
 
-css_index = Bundle('jquery-ui.custom.css',
+css_index = Bundle('css/jquery-ui.custom.css',
 	filters="yui_css", output='index.css')
 assets.register('css_index', css_index)
 

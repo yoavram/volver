@@ -32,3 +32,5 @@ config.py
 
 static/.webassets-cache
 static/logos
+static/base.*
+static/index.*
