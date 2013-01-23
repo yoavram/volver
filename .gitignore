@@ -29,3 +29,6 @@ pip-log.txt
 venv
 .env
 config.py
+
+static/.webassets-cache
+static/logos
