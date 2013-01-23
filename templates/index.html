@@ -107,17 +107,6 @@ $(function() {
 		});
 	});
 })
-$(function() {
-	$('#comments-btn').click(function() {		
-		if ($('#ccomments').css('display') == 'none') {
-			$('#ccomments').show();
-			$('#comments-btn-icon').removeClass().addClass('icon-remove');
-		} else {
-			$('#ccomments').hide();
-			$('#comments-btn-icon').removeClass().addClass('icon-arrow-left');
-		}
-	});
-})
 
 $(document).ready(function(){
 	jQuery.validator.addMethod("dates", validate_dates, 'קודם יוצאים אח"כ מגיעים'); 
@@ -150,7 +139,7 @@ $(function() {
 <div class="row-fluid">
 	<div class="span3">
 		<div  style="margin-left: 10px">
-		<form id="main_form" class="form-horizontal" action="/" method="post">
+		<form id="main_form" class="form-horizontal" action="/" method="post" enctype="multipart/form-data">
 			<fieldset>
 				<div class="control-group">
 					<div class="controls">
@@ -171,7 +160,7 @@ $(function() {
 					<label class="control-label" for="source">מוצא 
 					</label>
 					<div class="controls"><i class="icon-map-marker"></i> 
-						<select class="span8" name="source" id="source" required>
+						<select class="span9" name="source" id="source" required>
 							{% for k,v in sort_atlas_by_field(atlas,field='lat',reverse=True) %}
 							<option value="{{ v.he }}" lat="{{ v.lat }}" lng="{{ v.lng }}">{{ v.he }}</option>
 							{% endfor %}
@@ -179,7 +168,7 @@ $(function() {
 						</select>
 						<div id="custom_source" style="display: none;">
 							<p></p>
-							<input class="span8" type="text" name="custom_source" placeholder="מאיפה?" />
+							<input class="span9" type="text" name="custom_source" placeholder="מאיפה?" />
 						</div>
 					</div>
 				</div>
@@ -187,7 +176,7 @@ $(function() {
 					<label class="control-label" for="destination">יעד 
 					</label>
 					<div class="controls"><i class="icon-map-marker"></i> 
-						<select class="span8" name="destination" id="destination" required>
+						<select class="span9" name="destination" id="destination" required>
 							{% for k,v in sort_atlas_by_field(atlas,field='lat',reverse=False) %}
 							<option value="{{ v.he }}" lat="{{ v.lat }}" lng="{{ v.lng }}">{{ v.he }}</option>
 							{% endfor %}
@@ -195,7 +184,7 @@ $(function() {
 						</select>
 						<div id="custom_destination" style="display: none;">
 							<p></p>
-							<input class="span8" type="text" name="custom_destination" placeholder="לאן?" />
+							<input class="span9" type="text" name="custom_destination" placeholder="לאן?" />
 						</div>
 					</div>
 				</div>
@@ -220,20 +209,26 @@ $(function() {
 				<div class="control-group">
 					<label class="control-label" for="name">שם</label>
 					<div class="controls"><i class="icon-user"></i>
-						<input id="cname" class="span8" type="text" placeholder="החתול שמיל" name="name" required>
+						<input id="cname" class="span9" type="text" placeholder="החתול שמיל" name="name" required>
 					</div> 
 				</div>  
 				<div class="control-group">
 					<label class="control-label" for="email">דוא"ל</label> 
 					<div class="controls"><i class="icon-envelope-alt"></i>
-						<input id="cemail" class="span8" type="email" placeholder="shmil@mail.cat" name="email" required>
+						<input id="cemail" class="span9" type="email" placeholder="shmil@catmail.com" name="email" required>
 					<label id="checkmail-label"  style="display: block; font-size: small;"></label>
 					</div>   
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="comments" id="comments_label">הערות</label> 
 					<div class="controls"><i class="icon-pencil"></i>
-						<input id="ccomments" class="span8" type="text" placeholder="האוטו בצבע צהוב חרדל" name="comments">
+						<input id="ccomments" class="span9" type="text" placeholder="האוטו בצבע צהוב חרדל" name="comments">
+					</div>   
+				</div>  
+				<div class="control-group">
+					<label class="control-label" for="photo" id="photo_label">תמונה</label> 
+					<div class="controls"><i class="icon-camera"></i>
+						<input id='photo' type='file' name='photo' class='span9'>		
 					</div>   
 				</div>  
 				<div class="control-group">

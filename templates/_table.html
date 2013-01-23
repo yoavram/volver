@@ -59,7 +59,15 @@
 			</td>
 			<td>
 				{% if p.comments %}
-				<a href="#" class="link-icon" onclick="show_comments('{{ p._id }}')"><i class="icon-sort-down"></i></a>
+				<a href="#" class="link-icon" onclick="show_comments('{{ p._id }}')" rel="tooltip" title="לצפייה בהערות">
+					<i class="icon-sort-down"></i>
+				</a>
+				{% endif %}
+				&nbsp;
+				{% if p.photo_id %}
+				<a class="link-icon" href="{{ get_photo_url(p.photo_id, p.photo_format) }}" target="_blank" rel="tooltip" title="לצפייה בתמונת הרכב">
+					<i class="icon-picture"></i>
+				</a>
 				{% endif %}
 			</td>
 		</tr>

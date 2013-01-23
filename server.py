@@ -14,6 +14,8 @@ from atlas import atlas
 from apscheduler.scheduler import Scheduler
 import uuid
 from sendgrid import Sendgrid, Message
+import cloudinary
+from cloudinary import uploader
 
 DATE_FORMAT = "%d/%m/%Y"
 SHORT_DATE_FORMAT = "%d/%m/%y"
@@ -53,7 +55,7 @@ def sort_atlas_by_field(atlas, field='lat', reverse=False):
 	return sorted(atlas.items(), key=lambda x: x[1][field], reverse=reverse)
 
 
-def process_form(form):
+def process_form(form, files=None):
 	form['leaving'] = datetime_from_string(form['leaving'])
 	form['arriving'] = datetime_from_string(form['arriving'])
 	if form['source'].endswith('...'):
@@ -61,7 +63,19 @@ def process_form(form):
 	if form['destination'].endswith('...'):
 		form['destination'] = form['custom_destination']
 	form['secret'] = str(uuid.uuid1())
+	if files and 'photo' in files:
+		form['photo_id'], form['photo_format'] = add_photo(files['photo'])
 	return form
+
+
+def get_photo_url(photo_id, photo_format):
+	photo_url = cloudinary.utils.cloudinary_url(photo_id)[0] + '.' + photo_format
+	return photo_url
+
+
+def get_thumbnail_url(photo_id, photo_format):
+	thumbnail_url = cloudinary.utils.cloudinary_url(photo_id, width=40, crop="fill")[0] + '.' + photo_format
+	return thumbnail_url
 
 
 # add environment variables using 'heroku config:add VARIABLE_NAME=variable_name'
@@ -78,10 +92,12 @@ GOOGLE_ANALYTICS = os.environ.get('GOOGLE_ANALYTICS', '')
 MAIL_USERNAME = os.environ.get("SENDGRID_USERNAME")
 MAIL_PASSWORD = os.environ.get("SENDGRID_PASSWORD")
 
+# Cloudinary
+CLOUDINARY_URL = os.environ.get("CLOUDINARY_URL")
+
 # init & configure app
 app = Flask(__name__)
 app.config.from_object(__name__)  
-app.config.from_pyfile('config.py', True)
 Markdown(app)
 
 # init Assets
@@ -105,7 +121,6 @@ assets.register('css_index', css_index)
 # init mail http://sendgrid.com/docs/Code_Examples/python.html
 mail = Sendgrid(app.config['MAIL_USERNAME'], app.config['MAIL_PASSWORD'], secure=True)
 
-
 # init database
 if app.debug:
 	print " * Running in debug mode"
@@ -126,6 +141,8 @@ app.jinja_env.filters['format_date_short'] = short_string_from_datetime
 app.jinja_env.globals['atlas'] = atlas
 app.jinja_env.globals['sort_atlas_by_field'] = sort_atlas_by_field
 app.jinja_env.globals['howto'] = open("templates/howto.md").read()  
+app.jinja_env.globals['get_photo_url'] = get_photo_url
+app.jinja_env.globals['get_thumbnail_url'] = get_thumbnail_url
 
 def send_welcome_mail(post):
 	delete_link = request.url_root[:-1] + url_for('delete', secret=post['secret'])
@@ -172,18 +189,24 @@ def remove_old_posts():
 			print "Removing old post: "
 			print p
 			get_collection().remove(p['_id'])
-	
+
+
+def add_photo(photo):
+	params = uploader.build_upload_params()
+	json_result = uploader.call_api("upload", params, file=photo.stream)
+    	return json_result['public_id'], json_result['format']
+
 
 @app.route("/",  methods=['GET', 'POST'])
 def index():
 	if request.method == 'GET':
 		posts, num = get_posts()
-		print "# Posts:", num
+		#print "# Posts:", num
 		return render_template("index.html", posts=posts)
 	else:
-		post = process_form(request.form.to_dict())
+		post = process_form(request.form.to_dict(), request.files)
 		oid = add_post(post)
-		print "Added post to database:", oid
+		#print "Added post to database:", oid		
 		send_welcome_mail(post)
 		return redirect('/')
 

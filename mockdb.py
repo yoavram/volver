@@ -25,7 +25,7 @@ class MockDb:
 
 
 	def insert(self, post):
-		_id = max([ x['_id'] for x in self.data ]) + 1
+		_id = ObjectId()
 		post['_id'] = _id
 		self.data.append(post)
 		return _id
