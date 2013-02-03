@@ -50,6 +50,7 @@ def string_from_datetime(datetime_obj):
 def short_string_from_datetime(datetime_obj):
 	return datetime_obj.strftime(SHORT_DATE_FORMAT)
 
+
 def sort_atlas_by_field(atlas, field='lat', reverse=False):
 	return sorted(atlas.items(), key=lambda x: x[1][field], reverse=reverse)
 
@@ -62,7 +63,7 @@ def process_form(form, files=None):
 	if form['destination'].endswith('...'):
 		form['destination'] = form['custom_destination']
 	form['secret'] = str(uuid.uuid1())
-	if files and 'photo' in files:
+	if files and 'photo' in files and files['photo'].filename:
 		form['photo_id'], form['photo_format'] = add_photo(files['photo'])
 	return form
 
@@ -143,6 +144,7 @@ app.jinja_env.globals['howto'] = open("templates/howto.md").read()
 app.jinja_env.globals['get_photo_url'] = get_photo_url
 app.jinja_env.globals['get_thumbnail_url'] = get_thumbnail_url
 
+
 def send_welcome_mail(post):
 	delete_link = request.url_root[:-1] + url_for('delete', secret=post['secret'])
 	html = render_template("welcome_mail.html", post=post, delete_link=delete_link)
@@ -193,19 +195,21 @@ def remove_old_posts():
 			get_collection().remove(p['_id'])
 	remove_photos(photo_ids)
 
+
 def add_photo(photo):
-	params = uploader.build_upload_params()
-	json_result = uploader.call_api("upload", params, file=photo.stream)
+	params = cloudinary.uploader.build_upload_params()
+	json_result = cloudinary.uploader.call_api("upload", params, file=photo.stream)
     	return json_result['public_id'], json_result['format']
 
 
 def remove_photos(photo_ids):
-	json_result = api.delete_resources(photo_ids)
+	json_result = cloudinary.api.delete_resources(photo_ids)
 	if json_result['partial']:
 		print "Partial deletion of photos:", json_result
 	for k,v in json_result['deleted']:
 		if v != 'deleted':
 			print "Photo not deleted:", k
+
 
 @app.route("/",  methods=['GET', 'POST'])
 def index():
